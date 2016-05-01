@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>스프링노트</title>
+	<script type="text/javascript" src="/static/js/jquery-1.12.3.min.js"></script>
+	<script type="text/javascript" src="/static/js/underscore-min.js"></script>
+	<script type="text/javascript" src="/static/js/backbone-min.js"></script>
+
+</head>
+<body>
+	<div class="side">
+		<h1><a href="/">&lt;<span>/</span>springnote&gt;</a></h1>		
+		<div id="notes"></div>
+			<script type="text/template" id="noteTemplate">
+				<p data-uri="<%=resource_uri%>"><%= title %></p>
+			</script>
+			<script type="text/template" id="notesTemplate">
+
+			</script>			
+		</div>
+	</div>
+	<div class="main">
+		<h1>스프링노트</h1>
+		<article>
+			스프링노트에 온 것을 환영한다...
+		</article>		
+	</div>
+
+	<script>
+		$(document).ready(function(){
+
+			var Note = Backbone.Model.extend({
+			});
+
+			var Notes = Backbone.Collection.extend({
+				model: Note,
+				url:'/api/v1/note/'
+			});
+
+			var NoteView = Backbone.View.extend({
+				tagName: 'li',
+				template: _.template($('#noteTemplate').html()),
+				render: function(){
+					this.$el.html(this.template(this.model.toJSON()));
+					return this;
+				}
+			});
+			var NotesView = Backbone.View.extend({
+				tagName: 'ul',
+				template: _.template($('#notesTemplate').html()),
+				initialize: function(){
+					this.render();
+				},
+				render: function(){
+					this.collection.each(function(note){
+						var noteView = new NoteView({ model: note });
+						this.$el.append(noteView.render().el);
+					}, this);
+					$('#notes').html(this.$el);
+				}
+			});
+
+			var notes = new Notes();
+			notes.fetch({
+				success:function(){
+					var notesView = new NotesView({collection:notes});
+				}
+			});
+		})
+
+	</script>
+</body>
+</html>

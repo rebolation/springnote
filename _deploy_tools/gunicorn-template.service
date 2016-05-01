@@ -1,0 +1,17 @@
+[Unit]
+Description=gunicorn daemon
+Requires=gunicorn.socket
+After=network.target
+
+[Service]
+PIDFile=/run/gunicorn/pid
+User=USER_NAME
+Group=USER_NAME
+WorkingDirectory=SOURCE_FOLDER
+ExecStart=VIRTUALENV_FOLDER/bin/gunicorn --pid /run/gunicorn/pid PROJECT_NAME.wsgi:application
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s TERM $MAINPID
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

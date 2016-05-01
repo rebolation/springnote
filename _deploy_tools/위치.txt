@@ -1,0 +1,16 @@
+lubuntu16.04
+
+/etc
+	/tmpfiles.d
+		gunicorn-template.conf
+
+	/systemd
+		/system
+			gunicorn-template.service
+			gunicorn-template.socket
+
+	/nginx
+		sites-available
+			nginx-template.conf
+
+

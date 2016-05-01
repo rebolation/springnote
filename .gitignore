@@ -1,0 +1,11 @@
+*.pyc
+*.sqlite3
+*.sublime-project
+*.sublime-workspace
+__pycache__
+.DS_Store
+.sass-cache
+myvenv
+virtualenv
+_virtualenv
+_static

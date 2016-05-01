@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>스프링노트</title>
+	<script type="text/javascript" src="/static/js/jquery-1.12.3.min.js"></script>
+	<script type="text/javascript" src="/static/js/underscore-min.js"></script>
+	<script type="text/javascript" src="/static/js/backbone-min.js"></script>
+	<link rel="stylesheet" href="/static/js/jstree/themes/default/style.min.css">
+	<script type="text/javascript" src="/static/js/jstree/jstree.min.js"></script>
+
+</head>
+<body>
+
+	<div id="jstree"></div>
+
+	<section class="todoapp">
+		<header class="header">
+			<h1>todos</h1>
+			<input class="new-todo" placeholder="What needs to be done?" autofocus>
+		</header>
+		<section class="main">
+			<input class="toggle-all" id="toggle-all" type="checkbox">
+			<label for="toggle-all">Mark all as complete</label>
+			<ul class="todo-list"></ul>
+		</section>
+		<footer class="footer"></footer>
+	</section>
+	<script type="text/template" id="item-template">
+		<div class="view">
+			<input class="toggle" type="checkbox" <%= completed ? 'checked' : '' %>>
+			<label><%- title %></label>
+			<button class="destroy"></button>
+		</div>
+		<input class="edit" value="<%- title %>">
+	</script>
+	<link rel="stylesheet" href="/static/js/backbone/base.css">
+	<script src="/static/js/backbone/backbonelocalstorage.js"></script>
+	<script src="/static/js/backbone/note.js"></script>
+	<script src="/static/js/backbone/notes.js"></script>
+	<script src="/static/js/backbone/note-view.js"></script>
+	<script src="/static/js/backbone/app-view.js"></script>
+	<script src="/static/js/backbone/router.js"></script>
+	<script src="/static/js/backbone/app.js"></script>
+	<script src="/static/js/backbone/tree.js"></script>
+</body>
+</html>

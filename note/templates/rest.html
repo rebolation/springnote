@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>스프링노트</title>
+	<script type="text/javascript" src="/static/js/jquery-1.12.3.min.js"></script>
+</head>
+<body>
+	<script>
+		
+		//Creating A New Resource (POST)
+		var data = JSON.stringify({
+		    "body": "This will prbbly be my lst post.",
+		    "pub_date": "2011-05-22T00:46:38",
+		    "slug": "another-post",
+		    "title": "Another Post",
+		    "user": "/api/v1/user/1/"
+		});
+		$.ajax({
+		  url: 'http://localhost:8000/api/v1/entry/',
+		  type: 'POST',
+		  contentType: 'application/json',
+		  data: data,
+		  dataType: 'json',
+		  processData: false,
+		  error: function(e){console.log(e)}
+		})
+
+		//Updating An Existing Resource (PUT)
+		var data = JSON.stringify({
+		    "body": "This will prbbly be my last post.",
+		    "pub_date": "2011-05-22T00:46:38",
+		    "slug": "another-post",
+		    "title": "Another Post",
+		    "user": "/api/v1/user/1/"
+		});
+		$.ajax({
+		  url: 'http://localhost:8000/api/v1/entry/5/',
+		  type: 'PUT',
+		  contentType: 'application/json',
+		  data: data,
+		  dataType: 'json',
+		  processData: false,
+		  error: function(e){console.log(e)}
+		})
+
+
+		//Partially Updating An Existing Resource (PATCH)
+		var data = JSON.stringify({
+		    "body": "This actually is my last post.",
+		    "pub_date": "2011-05-22T00:46:38",
+		    "slug": "another-post",
+		    "title": "Another Post",
+		    "user": "/api/v1/user/1/"
+		});
+		$.ajax({
+		  url: 'http://localhost:8000/api/v1/entry/5/',
+		  type: 'PATCH',
+		  contentType: 'application/json',
+		  data: data,
+		  dataType: 'json',
+		  processData: false,
+		  error: function(e){console.log(e)}
+		})
+
+		//Updating A Whole Collection Of Resources (PUT)
+		var data = JSON.stringify(
+			{
+				"objects":[
+					{
+						"body":"Welcome to my blog!",
+						"id":"1",
+						"pub_date":"2011-05-20T00:46:38",
+						"resource_uri":"/api/v1/entry/1/",
+						"slug":"first-post",
+						"title":"First Post",
+						"user":"/api/v1/user/1/"
+					},
+					{
+						"body":"I'm really excited to get started with this new blog. It's gonna be great!",
+						"id":"3",
+						"pub_date":"2011-05-20T00:47:30",
+						"resource_uri":"/api/v1/entry/3/",
+						"slug":"my-blog",
+						"title":"My Blog",
+						"user":"/api/v1/user/1/"
+					}
+				]
+			}
+		);
+		$.ajax({
+		  url: 'http://localhost:8000/api/v1/entry/',
+		  type: 'PUT',
+		  contentType: 'application/json',
+		  data: data,
+		  dataType: 'json',
+		  processData: false,
+		  error: function(e){console.log(e)}
+		})
+
+		//Deleting Data(DELETE)
+		$.ajax({
+		  url: 'http://localhost:8000/api/v1/entry/1/',
+		  type: 'DELETE',
+		  contentType: 'application/json',
+		  dataType: 'json',
+		  processData: false,
+		  error: function(e){console.log(e)}
+		})
+
+		//Deleting A Whole Collection Of Resources(DELETE)
+		$.ajax({
+		  url: 'http://localhost:8000/api/v1/entry/',
+		  type: 'DELETE',
+		  contentType: 'application/json',
+		  dataType: 'json',
+		  processData: false,
+		  error: function(e){console.log(e)}
+		})		
+
+	</script>
+</body>
+</html>
