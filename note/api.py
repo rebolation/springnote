@@ -49,8 +49,8 @@ class NoteResource(ModelResource):
 	parent = fields.ForeignKey('self', 'parent', null=True)
 
 	class Meta:
-		queryset = Note.objects.all()
-		# queryset = Note.objects.order_by('-text')
+		# queryset = Note.objects.all()
+		queryset = Note.objects.order_by('order')
 		resource_name = 'note' #미지정시 클래스명으로부터 모델 생성
 		filtering = { "id" : ALL }
 		fields = ['id', 'order', 'text', 'author', 'completed'] #id를 꼭 넣어줘야 PATCH등이 정상 작동하는 듯

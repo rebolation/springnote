@@ -1,4 +1,3 @@
-/*global Backbone, jQuery, _, ENTER_KEY */
 var app = app || {};
 
 (function ($) {
@@ -48,6 +47,10 @@ var app = app || {};
 					}
 				);
 				this.$input.val('');
+
+				$('#jstree').jstree(true).settings.core.data = app.notes.toJSON();
+				$('#jstree').jstree(true).refresh();
+
 			}
 		},
 
