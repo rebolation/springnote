@@ -55,17 +55,25 @@ class NoteResource(ModelResource):
 		filtering = { "id" : ALL }
 		fields = ['id', 'order', 'text', 'author', 'completed'] #id를 꼭 넣어줘야 PATCH등이 정상 작동하는 듯
 		# serializer = Serializer()
-		# include_resource_uri = False
+		include_resource_uri = False
 		always_return_data = True #POST후 id와 resource_uri를 backbone에 전달
 		authorization = Authorization()
 
-	# def dehydrate(self, bundle):
-	# # 	bundle.data['id'] = int(bundle.data['resource_uri'][13:])
-	# 	if not bundle.data['parent']:
-	# 		bundle.data['parent'] = '#'
-	# 	else:
-	# 		bundle.data['parent'] = int(bundle.data['parent'][13:])
-	# 	return bundle
+	# backbone으로 보낼 데이터를 가공하여 전송
+	def dehydrate(self, bundle):
+		if bundle.data['parent']:
+			bundle.data['parent'] = int(bundle.data['parent'][13:])
+		else:
+			bundle.data['parent'] = '#'
+		return bundle
+
+	# backbone에서 보내온 데이터를 가공하여 저장
+	def hydrate(self, bundle):
+		if bundle.data['parent'] == None or bundle.data['parent'] == "#":
+			bundle.data['parent'] = None
+		else:
+			bundle.data['parent'] = '/api/v1/note/' + str(bundle.data['parent'])
+		return bundle
 
 	# backbone collection fetch를 위해 objects만 보냄
 	def alter_list_data_to_serialize(self, request, data):

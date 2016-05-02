@@ -20,7 +20,9 @@ var app = app || {};
 			this.listenTo(app.notes, 'reset', this.addAll);
 
 			// [R] collection.fetch -> GET
-			app.notes.fetch({reset: true});
+			app.notes.fetch({reset: true}).done(function(){
+				$("#jstree").jstree(jstreecore());
+			});
 		},
 
 		addOne: function (note) {
