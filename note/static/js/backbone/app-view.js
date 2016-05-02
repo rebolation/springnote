@@ -6,60 +6,45 @@ var app = app || {};
 
 	app.AppView = Backbone.View.extend({
 
-		// el: '.todoapp',
+		el: '.todoapp',
 
 		events: {
 			'keypress .new-todo': 'createOnEnter',
 		},
 
 		initialize: function () {
-			// this.$input = this.$('.new-todo');
-			// this.$main = this.$('.main');
-			// this.$list = $('.todo-list');
+			this.$input = this.$('.new-todo');
+			this.$list = $('.todo-list');
 
-			this.listenTo(app.notes, 'add', this.addOne);
-			this.listenTo(app.notes, 'reset', this.addAll);
-			// this.listenTo(app.notes, 'filter', this.filterAll);
+			this.listenTo(app.todos, 'add', this.addOne);
+			this.listenTo(app.todos, 'reset', this.addAll);
 
-			app.notes.fetch({reset: true}).done(function(){
-				$("#jstree").jstree(jstreecore());
-			});
-
-
+			// [R] collection.fetch -> GET
+			app.todos.fetch({reset: true});
 		},
 
-
-		addOne: function (note) {
-			// var view = new app.NoteView({ model: note });
-			// this.$list.append(view.render().el);
+		addOne: function (todo) {
+			var view = new app.TodoView({ model: todo });
+			this.$list.append(view.render().el);
 		},
 
 		addAll: function () {
-			// this.$list.html('');
-			// app.notes.each(this.addOne, this);
+			this.$list.html('');
+			app.todos.each(this.addOne, this);
 		},
 
-		// filterOne: function (todo) {
-		// 	todo.trigger('visible');
-		// },
-
-		// filterAll: function () {
-		// 	app.notes.each(this.filterOne, this);
-		// },
-
-		// newAttributes: function () {
-		// 	return {
-		// 		title: "테스트",
-		// 		author: "/api/v1/user/1"
-		// 	};
-		// },
-
-		// createOnEnter: function (e) {
-		// 	if (e.which === ENTER_KEY && this.$input.val().trim()) {
-				// app.notes.create(this.newAttributes());
-		// 		this.$input.val('');
-		// 	}
-		// },
+		// [C] collection.create -> POST
+		createOnEnter: function (e) {
+			if (e.which === ENTER_KEY && this.$input.val().trim()) {
+				app.todos.create(
+					{
+						title: this.$input.val().trim(),
+						completed: false
+					}
+				);
+				this.$input.val('');
+			}
+		},
 
 	});
 })(jQuery);

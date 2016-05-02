@@ -50,23 +50,24 @@ class NoteResource(ModelResource):
 
 	class Meta:
 		queryset = Note.objects.all()
+		# queryset = Note.objects.order_by('-text')
 		resource_name = 'note' #미지정시 클래스명으로부터 모델 생성
 		filtering = { "id" : ALL }
 		fields = ['order', 'text', 'author']
-		serializer = Serializer()
+		# serializer = Serializer()
 		# include_resource_uri = False
 		always_return_data = True #POST후 id와 resource_uri를 backbone에 전달
-		authorization = Authorization()		
+		authorization = Authorization()
 
 	# def dehydrate_title(self, bundle):
 	# 	return bundle.data['title'] + "제목입니다..."
 
 	def dehydrate(self, bundle):
-		bundle.data['id'] = bundle.data['resource_uri']#[13:]
+		bundle.data['id'] = int(bundle.data['resource_uri'][13:])
 		if not bundle.data['parent']:
-			bundle.data['parent'] = "#"
+			bundle.data['parent'] = '1'
 		else:
-			bundle.data['parent'] = bundle.data['parent']#[13:]
+			bundle.data['parent'] = int(bundle.data['parent'][13:])
 		return bundle
 
 	# backbone collection fetch를 위해 objects만 보냄

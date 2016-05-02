@@ -4,22 +4,14 @@ var app = app || {};
 (function () {
 	'use strict';
 
-	app.Note = Backbone.Model.extend({
+	app.Todo = Backbone.Model.extend({
+		defaults: {
+			title: '',
+		},
 
-		save_: function(data){
-			console.log(data);
-			console.log(this);
-			this.save();
+		// [U] model.save -> PATCH
+		toggleComplete: function () {
+			this.save( {completed: !this.get('completed')}, {patch:true} ); //patch:true를 지정하여 put대신 patch로 저장한다
 		}
-
-		// defaults: {
-		// 	id:'',
-		// 	text: '',
-		// },
-
-		// toggle: function () {
-		// 	this.save( {completed: !this.get('completed')}, {patch:true} ); //patch:true를 지정하여 put대신 patch로 저장한다
-		// }
-
 	});
 })();
