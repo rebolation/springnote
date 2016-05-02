@@ -4,7 +4,7 @@ var app = app || {};
 (function ($) {
 	'use strict';
 
-	app.TodoView = Backbone.View.extend({
+	app.NoteView = Backbone.View.extend({
 		tagName:  'li',
 
 		template: _.template($('#item-template').html()),

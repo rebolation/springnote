@@ -16,30 +16,32 @@ var app = app || {};
 			this.$input = this.$('.new-todo');
 			this.$list = $('.todo-list');
 
-			this.listenTo(app.todos, 'add', this.addOne);
-			this.listenTo(app.todos, 'reset', this.addAll);
+			this.listenTo(app.notes, 'add', this.addOne);
+			this.listenTo(app.notes, 'reset', this.addAll);
 
 			// [R] collection.fetch -> GET
-			app.todos.fetch({reset: true});
+			app.notes.fetch({reset: true});
 		},
 
-		addOne: function (todo) {
-			var view = new app.TodoView({ model: todo });
+		addOne: function (note) {
+			var view = new app.NoteView({ model: note });
 			this.$list.append(view.render().el);
 		},
 
 		addAll: function () {
 			this.$list.html('');
-			app.todos.each(this.addOne, this);
+			app.notes.each(this.addOne, this);
 		},
 
 		// [C] collection.create -> POST
 		createOnEnter: function (e) {
 			if (e.which === ENTER_KEY && this.$input.val().trim()) {
-				app.todos.create(
+				app.notes.create(
 					{
-						title: this.$input.val().trim(),
-						completed: false
+						text: this.$input.val().trim(),
+						completed: false,
+						author: '/api/v1/user/1',
+						parent: null
 					}
 				);
 				this.$input.val('');

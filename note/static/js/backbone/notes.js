@@ -4,10 +4,10 @@ var app = app || {};
 (function () {
 	'use strict';
 
-	var Todos = Backbone.Collection.extend({
-		model: app.Todo,
-		url: '/api/v1/todo/',
+	var Notes = Backbone.Collection.extend({
+		model: app.Note,
+		url: '/api/v1/note/',
 	});
 
-	app.todos = new Todos();
+	app.notes = new Notes();
 })();

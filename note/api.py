@@ -53,22 +53,19 @@ class NoteResource(ModelResource):
 		# queryset = Note.objects.order_by('-text')
 		resource_name = 'note' #미지정시 클래스명으로부터 모델 생성
 		filtering = { "id" : ALL }
-		fields = ['order', 'text', 'author']
+		fields = ['id', 'order', 'text', 'author', 'completed'] #id를 꼭 넣어줘야 PATCH등이 정상 작동하는 듯
 		# serializer = Serializer()
 		# include_resource_uri = False
 		always_return_data = True #POST후 id와 resource_uri를 backbone에 전달
 		authorization = Authorization()
 
-	# def dehydrate_title(self, bundle):
-	# 	return bundle.data['title'] + "제목입니다..."
-
-	def dehydrate(self, bundle):
-		bundle.data['id'] = int(bundle.data['resource_uri'][13:])
-		if not bundle.data['parent']:
-			bundle.data['parent'] = '1'
-		else:
-			bundle.data['parent'] = int(bundle.data['parent'][13:])
-		return bundle
+	# def dehydrate(self, bundle):
+	# # 	bundle.data['id'] = int(bundle.data['resource_uri'][13:])
+	# 	if not bundle.data['parent']:
+	# 		bundle.data['parent'] = '#'
+	# 	else:
+	# 		bundle.data['parent'] = int(bundle.data['parent'][13:])
+	# 	return bundle
 
 	# backbone collection fetch를 위해 objects만 보냄
 	def alter_list_data_to_serialize(self, request, data):

@@ -15,7 +15,7 @@
 
 	<section class="todoapp">
 		<header class="header">
-			<h1>todos</h1>
+			<h1>notes</h1>
 			<input class="new-todo" placeholder="What needs to be done?" autofocus>
 		</header>
 		<section class="main">
@@ -28,10 +28,9 @@
 	<script type="text/template" id="item-template">
 		<div class="view">
 			<input class="toggle" type="checkbox" <%= completed ? 'checked' : '' %>>
-			<label><%- title %></label>
+			<label><%- text %></label>
 			<button class="destroy"></button>
 		</div>
-		<input class="edit" value="<%- title %>">
 	</script>
 	<link rel="stylesheet" href="/static/js/backbone/base.css">
 	<script src="/static/js/backbone/backbonelocalstorage.js"></script>

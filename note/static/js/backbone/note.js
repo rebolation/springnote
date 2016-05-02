@@ -4,10 +4,7 @@ var app = app || {};
 (function () {
 	'use strict';
 
-	app.Todo = Backbone.Model.extend({
-		defaults: {
-			title: '',
-		},
+	app.Note = Backbone.Model.extend({
 
 		// [U] model.save -> PATCH
 		toggleComplete: function () {

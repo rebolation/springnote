@@ -43,6 +43,7 @@ class Note(models.Model):
 	text = models.CharField(max_length=200)
 	content = models.TextField(null=True, blank=True)
 	regdate = models.DateTimeField(default=now)
+	completed = models.BooleanField(default=False)
 
 	def __str__(self):
 		return self.text
