@@ -47,10 +47,6 @@ var app = app || {};
 					}
 				);
 				this.$input.val('');
-
-				$('#jstree').jstree(true).settings.core.data = app.notes.toJSON();
-				$('#jstree').jstree(true).refresh();
-
 			}
 		},
 

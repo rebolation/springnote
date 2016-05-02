@@ -46,7 +46,7 @@ var jstreecore = function(){
 			"dnd",
 			"state",
 			"wholerow",
-			"contextmenu",
+			// "contextmenu",
 			// "sort",
 			// "search",
 		],
