@@ -133,5 +133,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, '_static')
 LOGIN_REDIRECT_URL = '/'
+
+# django-tastypie
 TASTYPIE_DEFAULT_FORMATS = ['json']
 TASTYPIE_ALLOW_MISSING_SLASH = True
+API_LIMIT_PER_PAGE = 0

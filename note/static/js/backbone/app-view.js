@@ -6,15 +6,15 @@ var app = app || {};
 
 	app.AppView = Backbone.View.extend({
 
-		el: '.todoapp',
+		el: '.noteapp',
 
 		events: {
-			'keypress .new-todo': 'createOnEnter',
+			'keypress .new-note': 'createOnEnter',
 		},
 
 		initialize: function () {
-			this.$input = this.$('.new-todo');
-			this.$list = $('.todo-list');
+			this.$input = this.$('.new-note');
+			this.$list = $('.note-list');
 
 			this.listenTo(app.notes, 'add', this.addOne);
 			this.listenTo(app.notes, 'reset', this.addAll);
@@ -43,7 +43,8 @@ var app = app || {};
 						text: this.$input.val().trim(),
 						completed: false,
 						author: '/api/v1/user/1',
-						parent: null
+						parent: null,
+						order: app.notes.nextOrder()
 					}
 				);
 				this.$input.val('');
