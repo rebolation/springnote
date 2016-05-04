@@ -18,7 +18,7 @@ def viewnote(request, pk):
 	if content == None:
 		content = ''
 
-	# content = strip_tags(content)
+	#저장시 bleach.clean
 	#contenteditable=true 에서는 escape하지 않음
 	# if content: 
 	# 	content = escape(content)

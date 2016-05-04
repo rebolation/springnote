@@ -8,6 +8,7 @@ var app = app || {};
 		el: '#noteapp',
 		events: {
 			// 'keypress #new-note': 'createOnEnter',
+			'click #newroot': 'newroot',
 			'click #newpost': 'newpost',
 			'click #savepost': 'savepost',
 			'click #removepost': 'removepost',
@@ -43,6 +44,25 @@ var app = app || {};
 		// 		this.$input.val('');
 		// 	}
 		// },
+		newroot: function(){
+			app.notes.create(
+				{
+					text: '새 항목',
+					completed: false,
+					author: '/api/v1/user/1',
+					parent: '#',
+					order: app.notes.nextOrder(),
+					content: ''
+				}, {
+					success: function(response){
+						var id = tree.lastselid;
+						var lastselnode = $("#jstree").jstree().get_node(tree.lastselid);
+						$('#jstree').jstree().deselect_node(lastselnode);
+						var newid = $("#jstree").jstree().create_node('#', response.toJSON(), "last");
+					}
+				}
+			);
+		},		
 		newpost: function(){
 			app.notes.create(
 				{
@@ -78,6 +98,8 @@ var app = app || {};
 					$("#jstree").jstree().delete_node(node);
 					$('article h1').html("");
 					$('article .content').html("");
+				},
+				error: function(response){
 				}
 			})
 		},
