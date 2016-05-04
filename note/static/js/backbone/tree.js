@@ -1,7 +1,38 @@
-//jstree순서변경
+//jstree
 var tree = {
 	dndid: null,
 	dndpid: null,
+	lastselid: null,
+
+	//설정
+	jstreecore: function(){
+		var data = app.notes.toJSON();
+		return	{
+			'core':{
+				'data': data, //백본컬렉션으로부터 json을 가져옴
+				'multiple': false,
+		        "themes":{
+		            "icons":false
+		        },
+				"check_callback" : 
+					function(operation, node, node_parent, node_position, more) {
+						tree.dndid = node.id;
+						tree.dndpid = node_parent.id;
+						return true;
+					}
+			},
+			"plugins" : [
+				"dnd",
+				"state",
+				"wholerow",
+				// "contextmenu",
+				// "types",
+				// "sort",
+				// "search",
+			],
+	
+		}
+	},
 
 	//드래그한 노드의 모든 형제노드의 order를 PATCH
 	updateorder: function(){ 
@@ -28,27 +59,23 @@ $(document).on('dnd_stop.vakata', function (e, data) {
 	model.save({"parent":pid},{patch:true, success:tree.updateorder});
 });
 
-//백본컬렉션으로부터 json을 가져옴
-var jstreecore = function(){
-	var data = app.notes.toJSON();
-	return	{
-		'core':{
-			'data': data,
-			'multiple': false,
-			"check_callback" : 
-			function(operation, node, node_parent, node_position, more) {
-				tree.dndid = node.id;
-				tree.dndpid = node_parent.id;
-				return true;
+//노드선택(읽기)
+$('#jstree').on("select_node.jstree", function (e, data) {
+	var id = data.node.id;
+	if(tree.lastselid != id) {
+		$.ajax({
+			url:'./note/'+id,
+			success:function(html){
+				$('article h1').text(data.node.text);
+				$('article .content').html(html);
 			}
-		},
-		"plugins" : [
-			"dnd",
-			"state",
-			"wholerow",
-			// "contextmenu",
-			// "sort",
-			// "search",
-		],
+		})
 	}
-};
+	tree.lastselid = id;
+});
+
+//노드추가
+$('#jstree').on("create_node.jstree", function (e, data) {
+	$('#jstree').jstree().deselect_node(data.node.parent);
+	$('#jstree').jstree().select_node(data.node);
+});

@@ -17,5 +17,5 @@ urlpatterns = [
     url(r'^$', views.homepage, name='homepage'),
     url(r'^api/', include(v1_api.urls)),
     # url(r'^nav/$', views.nav, name='nav'),
-    # url(r'^note/(?P<pk>[0-9]+)/$', views.viewnote, name='viewnote'),
+    url(r'^note/(?P<pk>[0-9]+)/$', views.viewnote, name='viewnote'),
 ]

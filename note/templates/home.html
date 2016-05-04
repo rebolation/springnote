@@ -6,14 +6,41 @@
 	<script type="text/javascript" src="/static/js/jquery-1.12.3.min.js"></script>
 	<script type="text/javascript" src="/static/js/underscore-min.js"></script>
 	<script type="text/javascript" src="/static/js/backbone-min.js"></script>
+	<link rel="stylesheet" href="/static/css/reset.css">
+	<link rel="stylesheet" href="/static/css/font.css">
+	<link rel="stylesheet" href="/static/css/base.css">
+	<link rel="stylesheet" href="/static/css/font-awesome-4.6.1/css/font-awesome.min.css">
 	<link rel="stylesheet" href="/static/js/jstree/themes/default/style.min.css">
 	<script type="text/javascript" src="/static/js/jstree/jstree.min.js"></script>
 </head>
 <body>
 
-	<div id="jstree"></div>
+	<div id="noteapp" class="container ">
+		<nav>
+			<header>
+				<h1>SPRINGNOTE</h1>
+				<input type="search" placeholder="검색" required />
+			</header>
+			<div id="jstree" class="scroll"></div>
+		</nav>
+		<div class="gnb">
+            <a href="#" id="home"><i class="fa fa-home" aria-hidden="true"></i></a>
+            <a href="#" id="newpost"><i class="fa fa-plus" aria-hidden="true"></i></a>
+            <a href="#" id="savepost"><i class="fa fa-floppy-o" aria-hidden="true"></i></a>
+            <a href="#" id="drawpost"><i class="fa fa-paint-brush" aria-hidden="true"></i></a>
+            <a href="#" id="lockpost"><i class="fa fa-lock" aria-hidden="true"></i></a>
+            <a href="#" id="removepost"><i class="fa fa-remove" aria-hidden="true"></i></a>
+		</div>
+		<article>
+			<h1 contenteditable="true"></h1>
+			<div class="content" contenteditable="true"></div>
+		</article>
+		<footer>
+			rebolation
+		</footer>		
+	</div>
 
-	<section class="noteapp">
+	<!-- <section class="noteapp">
 		<header class="header">
 			<h1>notes</h1>
 			<input class="new-note" placeholder="What needs to be done?" autofocus>
@@ -24,15 +51,16 @@
 			<ul class="note-list"></ul>
 		</section>
 		<footer class="footer"></footer>
-	</section>
-	<script type="text/template" id="item-template">
+	</section> -->
+
+	<!-- <script type="text/template" id="item-template">
 		<div class="view">
 			<input class="toggle" type="checkbox" <%= completed ? 'checked' : '' %>>
 			<label><%- text %></label>
 			<button class="destroy"></button>
 		</div>
-	</script>
-	<link rel="stylesheet" href="/static/js/backbone/base.css">
+	</script> -->
+
 	<script src="/static/js/backbone/backbonelocalstorage.js"></script>
 	<script src="/static/js/backbone/note.js"></script>
 	<script src="/static/js/backbone/notes.js"></script>

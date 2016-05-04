@@ -5,49 +5,81 @@ var app = app || {};
 
 	app.AppView = Backbone.View.extend({
 
-		el: '.noteapp',
-
+		el: '#noteapp',
 		events: {
-			'keypress .new-note': 'createOnEnter',
+			// 'keypress #new-note': 'createOnEnter',
+			'click #newpost': 'newpost',
+			'click #savepost': 'savepost',
+			'click #removepost': 'removepost',
 		},
+		// initialize: function () {
+		// 	this.$input = this.$('.new-note');
+		// 	this.$list = $('.note-list');
+		// 	this.listenTo(app.notes, 'add', this.addOne);
+		// 	this.listenTo(app.notes, 'reset', this.addAll);
+		// },
 
-		initialize: function () {
-			this.$input = this.$('.new-note');
-			this.$list = $('.note-list');
-
-			this.listenTo(app.notes, 'add', this.addOne);
-			this.listenTo(app.notes, 'reset', this.addAll);
-
-			// [R] collection.fetch -> GET
-			app.notes.fetch({reset: true}).done(function(){
-				$("#jstree").jstree(jstreecore());
-			});
-		},
 
 		addOne: function (note) {
 			var view = new app.NoteView({ model: note });
 			this.$list.append(view.render().el);
 		},
-
 		addAll: function () {
 			this.$list.html('');
 			app.notes.each(this.addOne, this);
 		},
-
-		// [C] collection.create -> POST
-		createOnEnter: function (e) {
-			if (e.which === ENTER_KEY && this.$input.val().trim()) {
-				app.notes.create(
-					{
-						text: this.$input.val().trim(),
-						completed: false,
-						author: '/api/v1/user/1',
-						parent: null,
-						order: app.notes.nextOrder()
+		// // [C] collection.create -> POST
+		// createOnEnter: function (e) {
+		// 	if (e.which === ENTER_KEY && this.$input.val().trim()) {
+		// 		app.notes.create(
+		// 			{
+		// 				text: this.$input.val().trim(),
+		// 				completed: false,
+		// 				author: '/api/v1/user/1',
+		// 				parent: null,
+		// 				order: app.notes.nextOrder()
+		// 			}
+		// 		);
+		// 		this.$input.val('');
+		// 	}
+		// },
+		newpost: function(){
+			app.notes.create(
+				{
+					text: '새 항목',
+					completed: false,
+					author: '/api/v1/user/1',
+					parent: Number(tree.lastselid),
+					order: app.notes.nextOrder(),
+					content: ''
+				}, {
+					success: function(response){
+						var id = tree.lastselid;
+						var newid = $("#jstree").jstree().create_node(id, response.toJSON(), "last");
 					}
-				);
-				this.$input.val('');
-			}
+				}
+			);
+		},
+		savepost: function(){
+			var id = Number(tree.lastselid);
+			var model = _.where(app.notes.models, {"id":id})[0];
+			model.save({text: $("article h1").text(), content: $("article .content").html() }, {patch:true, success: function(response){
+				var node = $("#jstree").jstree().get_node(response.get('id'));
+				$("#jstree").jstree().rename_node(node, response.get('text'));
+				$('article').animate({opacity : 0}, 500, function(){$('article').animate({opacity : 1})});				
+			}});
+		},
+		removepost: function(){
+			var id = Number(tree.lastselid);
+			var model = _.where(app.notes.models, {"id":id})[0];
+			model.destroy({
+				success: function(response){
+					var node = $("#jstree").jstree().get_node(response.get('id'));
+					$("#jstree").jstree().delete_node(node);
+					$('article h1').html("");
+					$('article .content').html("");
+				}
+			})
 		},
 
 	});

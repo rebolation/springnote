@@ -1,0 +1,102 @@
+body {
+  background-color: #ddd;
+  overflow-y: scroll; }
+
+div.container {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  border-top: 0;
+  border-bottom: 0;
+  box-shadow: 0px 0px 15px #aaa; }
+
+nav {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 300px;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  background-color: #3f3030;
+  border-left: 40px solid #2d2d2d;
+  color: #e5e5e5; }
+  nav header {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 80px;
+    background-color: #bc003b;
+    z-index: 9999; }
+    nav header h1 {
+      position: absolute;
+      top: 10px;
+      left: 20px;
+      font-size: 16px; }
+    nav header input {
+      position: absolute;
+      top: 41px;
+      left: 14px;
+      padding: 6px 10px;
+      border-radius: 16px;
+      border: 0; }
+  nav div.scroll {
+    padding: 100px 0px 50px 0px;
+    position: relative;
+    width: 290px;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll; }
+    nav div.scroll .jstree-node {
+      margin-left: 10px;
+      font-size: 13px; }
+    nav div.scroll div.jstree-wholerow-clicked {
+      background: white; }
+    nav div.scroll div.jstree-wholerow-hovered {
+      background: #bbb; }
+    nav div.scroll a.jstree-hovered,
+    nav div.scroll a.jstree-clicked {
+      color: #3f3030; }
+
+div.gnb {
+  position: fixed;
+  top: 0;
+  width: 40px;
+  z-index: 999;
+  text-align: center;
+  border-bottom-right-radius: 10px; }
+  div.gnb a {
+    display: block;
+    width: 32px;
+    line-height: 30px;
+    background: #2d2d2d;
+    color: white;
+    margin: 3px auto; }
+
+article {
+  margin-left: 300px;
+  background: #fff;
+  z-index: 999;
+  padding: 150px 40px 100px 40px; }
+  article h1 {
+    position: absolute;
+    top: 70px;
+    min-width: 200px; }
+  article .content {
+    height: 100%;
+    min-height: 100px; }
+
+footer {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: #2d2d2d;
+  color: white;
+  font-size: 14px;
+  text-align: right;
+  margin-left: 300px;
+  padding: 15px 15px 10px 15px;
+  height: 45px; }
+
+/*# sourceMappingURL=base.css.map */
