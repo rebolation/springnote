@@ -43,15 +43,6 @@ def _apt_get_check():
 	sudo('apt-get install -y postgresql-9.5 pgadmin3')
 	sudo('apt-get install -y libpq-dev')
 
-def _setup_postgres_if_necessary():
-	if not exists('/etc/postgresql/9.5/setup_flag.txt'):
-		sudo('touch /etc/postgresql/9.5/setup_flag.txt')
-		run('sudo -u postgres psql template1 -c "ALTER USER postgres with encrypted password \'1234\';"')
-		sudo('sed -i "s/\(local[[:blank:]]*all[[:blank:]]*postgres[[:blank:]]*\)peer/\\1md5/g" /etc/postgresql/9.5/main/pg_hba.conf')
-		run('sudo -u postgres psql template1 -c "CREATE USER superlists WITH PASSWORD \'1234\' CREATEDB;"')
-		run('sudo -u postgres psql template1 -c "CREATE DATABASE superlists OWNER superlists;"')
-		run('sudo /etc/init.d/postgresql restart')
-
 def _create_directory_structure_if_necessary():
 	run('mkdir -p %s' % (SOURCE_FOLDER))
 
@@ -85,6 +76,15 @@ def _update_virtualenv():
 
 def _update_static_files():
 	run('cd %s && %s/bin/python3 manage.py collectstatic --noinput' % (SOURCE_FOLDER, VIRTUALENV_FOLDER))
+
+def _setup_postgres_if_necessary():
+	if not exists('/etc/postgresql/9.5/setup_flag.txt'):
+		sudo('touch /etc/postgresql/9.5/setup_flag.txt')
+		run('sudo -u postgres psql template1 -c "ALTER USER postgres with encrypted password \'1234\';"')
+		sudo('sed -i "s/\(local[[:blank:]]*all[[:blank:]]*postgres[[:blank:]]*\)peer/\\1md5/g" /etc/postgresql/9.5/main/pg_hba.conf')
+		run('sudo -u postgres psql template1 -c "CREATE USER superlists WITH PASSWORD \'1234\' CREATEDB;"')
+		run('sudo -u postgres psql template1 -c "CREATE DATABASE superlists OWNER superlists;"')
+		run('sudo /etc/init.d/postgresql restart')
 
 def _update_database():
 	run('sudo /etc/init.d/postgresql restart')
