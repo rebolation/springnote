@@ -7,7 +7,8 @@ var app = app || {};
 
 		el: '#noteapp',
 		events: {
-			// 'keypress #new-note': 'createOnEnter',
+			'keydown article': 'ctrls',
+			'keydown #jstree': 'delete',
 			'click #newroot': 'newroot',
 			'click #newpost': 'newpost',
 			'click #savepost': 'savepost',
@@ -103,6 +104,17 @@ var app = app || {};
 				}
 			})
 		},
-
+		ctrls: function(e){
+			if (e.ctrlKey || e.metaKey) {
+				if (String.fromCharCode(e.which).toLowerCase() == 's') {
+					e.preventDefault();
+					this.savepost();
+				}
+			}
+		},
+		delete: function(e){
+			if (e.which == '46')
+				this.removepost();
+		}
 	});
 })(jQuery);

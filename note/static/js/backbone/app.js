@@ -1,6 +1,7 @@
 var app = app || {};
 var ENTER_KEY = 13;
 var ESC_KEY = 27;
+var S_KEY = 115;
 
 $(function () {
 	'use strict';
@@ -19,3 +20,18 @@ $(function () {
 	});
 
 });
+
+
+// $(window).keypress(function(event) {
+//     if (!(event.which == 115 && event.ctrlKey) && !(event.which == 19)) return true;
+//     event.preventDefault();
+//     return false;
+// });
+// $(window).bind('keydown', function(event) {
+//     if (event.ctrlKey || event.metaKey) {
+//     	if (String.fromCharCode(event.which).toLowerCase() == 's') {
+//             event.preventDefault();
+//             app.savepost();
+//         }
+//     }
+// });
