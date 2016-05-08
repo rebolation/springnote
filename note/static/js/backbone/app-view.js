@@ -5,6 +5,7 @@ var app = app || {};
 
 	app.AppView = Backbone.View.extend({
 
+		//변경됨
 		el: '#noteapp',
 		events: {
 			'keydown article': 'ctrls',

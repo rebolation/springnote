@@ -3,7 +3,7 @@ from fabric.api import env, local, run, sudo
 import random
 import os, sys, time
 
-def deploy(siteurl='', virtualenvdir='', staticdir='', deploytoolsdir=''):
+def deploy(siteurl='', virtualenvdir='', staticdir='', deploytoolsdir='', fetchonly=False):
 	global PROJECT_NAME			# superlists
 	global USER_NAME			# rebo
 	global REPO_URL				# https://github.com/rebolation/superlists.git
@@ -12,6 +12,7 @@ def deploy(siteurl='', virtualenvdir='', staticdir='', deploytoolsdir=''):
 	global VIRTUALENV_FOLDER	# /home/rebo/sites/rebosvr.iptime.org/_virtualenv
 	global STATIC_FOLDER		# /home/rebo/sites/rebosvr.iptime.org/_static
 	global DEPLOY_TOOLS_FOLDER	# /home/rebo/sites/rebosvr.iptime.org/_virtualenv
+	global FETCH_ONLY
 	PROJECT_NAME = os.path.basename(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 	USER_NAME = env.user
 	REPO_URL = 'https://github.com/rebolation/%s.git' % PROJECT_NAME
@@ -23,6 +24,7 @@ def deploy(siteurl='', virtualenvdir='', staticdir='', deploytoolsdir=''):
 	VIRTUALENV_FOLDER = SOURCE_FOLDER + '/' + virtualenvdir
 	STATIC_FOLDER = SOURCE_FOLDER + '/' + staticdir
 	DEPLOY_TOOLS_FOLDER = SOURCE_FOLDER + '/' + deploytoolsdir
+	FETCH_ONLY = fetchonly
 
 	_apt_get_check()								# git, pip3, virtualenv, nginx, postgresql-9.5, pgadmin3, libpq installation
 	_create_directory_structure_if_necessary()		# creating folders
@@ -36,6 +38,9 @@ def deploy(siteurl='', virtualenvdir='', staticdir='', deploytoolsdir=''):
 	_update_nginx()									# nginx reload
 
 def _apt_get_check():
+	if FETCH_ONLY:
+		return
+
 	sudo('apt-get install -y git')
 	sudo('apt-get install -y python3-pip')
 	sudo('apt-get install -y virtualenv')
@@ -44,6 +49,9 @@ def _apt_get_check():
 	sudo('apt-get install -y libpq-dev')
 
 def _create_directory_structure_if_necessary():
+	if FETCH_ONLY:
+		return
+
 	run('mkdir -p %s' % (SOURCE_FOLDER))
 
 def _get_latest_source():
@@ -55,6 +63,9 @@ def _get_latest_source():
 	run('cd %s && git reset --hard %s' % (SOURCE_FOLDER, current_commit))
 
 def _update_settingspy():
+	if FETCH_ONLY:
+		return
+
 	settings_path = SOURCE_FOLDER + '/' + PROJECT_NAME + '/settings.py'
 	sed(settings_path, "DEBUG[[:blank:]]*=[[:blank:]]*True", "DEBUG = False")
 	sed(settings_path, "SECRET_KEY[[:blank:]]*=.+$", "")
@@ -70,6 +81,9 @@ def _update_settingspy():
 	append(settings_path, '\nfrom .secret_key import SECRET_KEY')
 
 def _update_virtualenv():
+	if FETCH_ONLY:
+		return
+
 	if not exists(VIRTUALENV_FOLDER + '/bin/pip'):
 		run('virtualenv --python=python3 %s' % (VIRTUALENV_FOLDER,))
 	run('%s/bin/pip install -r %s/requirements.txt' %(VIRTUALENV_FOLDER, SOURCE_FOLDER))
@@ -78,6 +92,9 @@ def _update_static_files():
 	run('cd %s && %s/bin/python3 manage.py collectstatic --noinput' % (SOURCE_FOLDER, VIRTUALENV_FOLDER))
 
 def _setup_postgres_if_necessary():
+	if FETCH_ONLY:
+		return
+
 	if not exists('/etc/postgresql/9.5/setup_flag.txt'):
 		sudo('touch /etc/postgresql/9.5/setup_flag.txt')
 		run('sudo -u postgres psql template1 -c "ALTER USER postgres with encrypted password \'1234\';"')
@@ -87,10 +104,16 @@ def _setup_postgres_if_necessary():
 		run('sudo /etc/init.d/postgresql restart')
 
 def _update_database():
+	if FETCH_ONLY:
+		return
+
 	run('sudo /etc/init.d/postgresql restart')
 	run('cd %s && %s/bin/python3 manage.py migrate --noinput' % (SOURCE_FOLDER, VIRTUALENV_FOLDER))
 
 def _update_gunicorn():
+	if FETCH_ONLY:
+		return
+
 	sudo('cp  %s/gunicorn-template.socket /etc/systemd/system/gunicorn.socket' % (DEPLOY_TOOLS_FOLDER))
 	sudo('sed -i "s/USER_NAME/%s/g" /etc/systemd/system/gunicorn.socket' % (USER_NAME))
 	sudo('cp  %s/gunicorn-template.service /etc/systemd/system/gunicorn.service' % (DEPLOY_TOOLS_FOLDER))
@@ -123,6 +146,9 @@ def _update_gunicorn():
 	# sudo('systemctl status gunicorn')
 
 def _update_nginx():
+	if FETCH_ONLY:
+		return
+
 	sudo('cp  %s/nginx-template.conf /etc/nginx/sites-available/%s' % (DEPLOY_TOOLS_FOLDER,SITE_URL))
 	sudo('sed -i "s/SITE_URL/%s/g" /etc/nginx/sites-available/%s' % (SITE_URL, SITE_URL))
 	sudo('sed -i "s/STATIC_FOLDER/%s/g" /etc/nginx/sites-available/%s' % (STATIC_FOLDER.replace('/','\/'), SITE_URL))
