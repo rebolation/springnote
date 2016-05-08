@@ -109,8 +109,37 @@ article {
     .content {
         height: 100%;
         min-height:100px;
-		tab-size: 4;
+		// tab-size: 4;
 		font-family: 'Raleway', 'Noto Sans KR';
+		// blockquote {
+		// 	margin: 12px 15px 23px 15px;
+		// 	padding: 20px 20px;
+		// 	position: relative;
+		// 	background-color: #d8d8d8;
+		// 	border-radius: 15px;
+		// 	word-break: break-all;
+		// }
+		// pre {
+		// 	margin: 30px 0px;
+		// 	padding: 15px;
+		// 	color: black;
+		// 	background-color: #d6d6d6;
+		// 	border-radius: 15px;
+		// 	box-shadow: 0px 0px 45px #afafaf;
+		// 	overflow-x: scroll;
+		// 	overflow-y: hidden;
+		// 	background-color: #444;
+		// 	code {
+		// 		letter-spacing: 1px;
+		// 		color: white;
+		// 		background-color: #444;
+		// 		font-family: 'Raleway', 'Noto Sans KR';
+		// 	}
+		// }
+		// margin-top: 50px;
+		// font-size: 80%;
+		// line-height: 130%;
+		// tab-size: 4;
 		blockquote {
 			margin: 12px 15px 23px 15px;
 			padding: 20px 20px;
@@ -126,15 +155,15 @@ article {
 			background-color: #d6d6d6;
 			border-radius: 15px;
 			box-shadow: 0px 0px 45px #afafaf;
-			overflow-x: scroll;
-			overflow-y: hidden;
-			background-color: #444;
 			code {
-				letter-spacing: 1px;
+				display: block;
+				padding: 15px;
+				overflow-x: scroll;
 				color: white;
 				background-color: #444;
+				font-family: 'Raleway', 'Nanum Gothic Coding';
 			}
-		}
+		}		
     }
 }
 

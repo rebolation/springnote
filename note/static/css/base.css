@@ -89,7 +89,6 @@ article {
   article .content {
     height: 100%;
     min-height: 100px;
-    tab-size: 4;
     font-family: 'Raleway', 'Noto Sans KR'; }
     article .content blockquote {
       margin: 12px 15px 23px 15px;
@@ -104,14 +103,14 @@ article {
       color: black;
       background-color: #d6d6d6;
       border-radius: 15px;
-      box-shadow: 0px 0px 45px #afafaf;
-      overflow-x: scroll;
-      overflow-y: hidden;
-      background-color: #444; }
+      box-shadow: 0px 0px 45px #afafaf; }
       article .content pre code {
-        letter-spacing: 1px;
+        display: block;
+        padding: 15px;
+        overflow-x: scroll;
         color: white;
-        background-color: #444; }
+        background-color: #444;
+        font-family: 'Raleway', 'Nanum Gothic Coding'; }
 
 footer {
   position: absolute;
