@@ -1,7 +1,6 @@
 body {
   background-color: #ddd;
-  overflow-y: scroll;
-  font-family: 'Raleway', 'Noto Sans KR'; }
+  overflow-y: scroll; }
 
 div.container {
   position: relative;
@@ -34,6 +33,8 @@ nav {
       top: 10px;
       left: 20px;
       font-size: 16px; }
+      nav header h1 a {
+        color: #E26C6C; }
     nav header input {
       position: absolute;
       top: 41px;
@@ -88,7 +89,8 @@ article {
   article .content {
     height: 100%;
     min-height: 100px;
-    tab-size: 4; }
+    tab-size: 4;
+    font-family: 'Raleway', 'Nanum Gothic Coding'; }
     article .content blockquote {
       margin: 12px 15px 23px 15px;
       padding: 20px 20px;
@@ -107,6 +109,7 @@ article {
       overflow-y: hidden;
       background-color: #444; }
       article .content pre code {
+        letter-spacing: 1px;
         color: white;
         background-color: #444; }
 
