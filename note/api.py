@@ -100,7 +100,7 @@ class NoteResource(ModelResource):
 			bundle.data['parent'] = '#'
 		else:
 			bundle.data['parent'] = int(bundle.data['parent'][13:])
-		bundle.data['content'] = None
+		# bundle.data['content'] = None
 		return bundle
 
 	# backbone에서 보내온 데이터를 가공하여 저장
@@ -115,7 +115,12 @@ class NoteResource(ModelResource):
 			bundle.data['content'] = bundle.data['content'].replace("\t","&nbsp;&nbsp;&nbsp;&nbsp;")
 			bundle.data['content'] = bleach.clean(
 				bundle.data['content'],
-				tags=['br', 'div', 'span'],
+				tags=['br', 'div', 'span', 'p', 'pre', 'code', 'blockquote'],
+				attributes={
+					'*': ['class'],
+					# '*': ['class', 'style'],
+				},
+				# styles=['color', 'background', 'background-color', 'font-size', 'font-weight'],
 				strip=True
 			)
 		return bundle
