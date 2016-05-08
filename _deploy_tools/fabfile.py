@@ -82,8 +82,8 @@ def _setup_postgres_if_necessary():
 		sudo('touch /etc/postgresql/9.5/setup_flag.txt')
 		run('sudo -u postgres psql template1 -c "ALTER USER postgres with encrypted password \'1234\';"')
 		sudo('sed -i "s/\(local[[:blank:]]*all[[:blank:]]*postgres[[:blank:]]*\)peer/\\1md5/g" /etc/postgresql/9.5/main/pg_hba.conf')
-		run('sudo -u postgres psql template1 -c "CREATE USER superlists WITH PASSWORD \'1234\' CREATEDB;"')
-		run('sudo -u postgres psql template1 -c "CREATE DATABASE superlists OWNER superlists;"')
+		run('sudo -u postgres psql template1 -c "CREATE USER '+PROJECT_NAME+' WITH PASSWORD \'1234\' CREATEDB;"')
+		run('sudo -u postgres psql template1 -c "CREATE DATABASE '+PROJECT_NAME+' OWNER '+PROJECT_NAME+';"')
 		run('sudo /etc/init.d/postgresql restart')
 
 def _update_database():
