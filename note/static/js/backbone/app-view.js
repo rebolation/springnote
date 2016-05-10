@@ -70,7 +70,7 @@ var app = app || {};
 				{
 					text: '새 항목',
 					completed: false,
-					author: '/api/v1/user/1',
+					author: '/api/v1/user/' + USERID,
 					parent: Number(tree.lastselid),
 					order: app.notes.nextOrder(),
 					content: ''
