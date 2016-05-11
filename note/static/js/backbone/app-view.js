@@ -91,6 +91,7 @@ var app = app || {};
 			}});
 		},
 		removepost: function(){
+			if(USERID == null) return;
 			if(tree.searchmode) { alert("검색화면에서는 삭제할 수 없습니다."); return; }
 			if(confirm("삭제할까요?") == false) { return; }
 

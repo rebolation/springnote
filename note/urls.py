@@ -13,8 +13,10 @@ v1_api.register(NoteResource())
 v1_api.register(TodoResource())
 
 urlpatterns = [
-    url(r'^$', views.homepage, name='homepage'),
-    url(r'^api/', include(v1_api.urls)),
-    # url(r'^nav/$', views.nav, name='nav'),
-    url(r'^note/(?P<pk>[0-9]+)/$', views.viewnote, name='viewnote'),
+	url(r'^$', views.homepage, name='homepage'),
+	url(r'^accounts/login/$', 'django.contrib.auth.views.login', name='login'),
+	url(r'^accounts/logout/$', 'django.contrib.auth.views.logout', {'next_page':'/'}, name='logout'), 
+	url(r'^api/', include(v1_api.urls)),
+	# url(r'^nav/$', views.nav, name='nav'),
+	url(r'^note/(?P<pk>[0-9]+)/$', views.viewnote, name='viewnote'),
 ]
