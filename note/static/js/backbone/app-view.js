@@ -120,12 +120,12 @@ var app = app || {};
 				this.removepost();
 		},
 		search: function(e){
-			var searchword = this.$search.val().trim();
+			var searchword = this.$search.val().trim().toLowerCase();
 			var filterednotes = null;
 			if (e.which === ENTER_KEY && searchword) {
 				filterednotes = app.notes.filter(function(note){
 					note.set('parent', '#');
-					return note.get('text').indexOf(searchword) > -1;
+					return note.get('text').toLowerCase().indexOf(searchword) > -1;
 				});
 				$('#jstree').jstree().settings.core.data = filterednotes;
 				$('#jstree').jstree().refresh();
