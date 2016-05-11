@@ -8,21 +8,20 @@ var app = app || {};
 		//변경됨
 		el: '#noteapp',
 		events: {
-			'keydown article': 'ctrls',
+			'keydown article': 'ctrl_s',
 			'keydown #jstree': 'delete',
+			'keydown #search': 'search',
 			'click #newroot': 'newroot',
 			'click #newpost': 'newpost',
 			'click #savepost': 'savepost',
 			'click #removepost': 'removepost',
 		},
-		// initialize: function () {
-		// 	this.$input = this.$('.new-note');
+		initialize: function () {
+			this.$search = this.$('#search');
 		// 	this.$list = $('.note-list');
 		// 	this.listenTo(app.notes, 'add', this.addOne);
 		// 	this.listenTo(app.notes, 'reset', this.addAll);
-		// },
-
-
+		},
 		addOne: function (note) {
 			var view = new app.NoteView({ model: note });
 			this.$list.append(view.render().el);
@@ -92,6 +91,9 @@ var app = app || {};
 			}});
 		},
 		removepost: function(){
+			if(tree.searchmode) { alert("검색화면에서는 삭제할 수 없습니다."); return; }
+			if(confirm("삭제할까요?") == false) { return; }
+
 			var id = Number(tree.lastselid);
 			var model = _.where(app.notes.models, {"id":id})[0];
 			model.destroy({
@@ -105,7 +107,7 @@ var app = app || {};
 				}
 			})
 		},
-		ctrls: function(e){
+		ctrl_s: function(e){
 			if (e.ctrlKey || e.metaKey) {
 				if (String.fromCharCode(e.which).toLowerCase() == 's') {
 					e.preventDefault();
@@ -116,6 +118,24 @@ var app = app || {};
 		delete: function(e){
 			if (e.which == '46')
 				this.removepost();
+		},
+		search: function(e){
+			var searchword = this.$search.val().trim();
+			var filterednotes = null;
+			if (e.which === ENTER_KEY && searchword) {
+				filterednotes = app.notes.filter(function(note){
+					note.set('parent', '#');
+					return note.get('text').indexOf(searchword) > -1;
+				});
+				$('#jstree').jstree().settings.core.data = filterednotes;
+				$('#jstree').jstree().refresh();
+				tree.searchmode = true;
+			}
+			if (e.which === ENTER_KEY && searchword === ""){
+				$('#jstree').jstree().settings.core.data = app.notes;
+				$('#jstree').jstree().refresh();				
+				tree.searchmode = false;
+			}
 		}
 	});
 })(jQuery);

@@ -102,6 +102,7 @@ class NoteResource(ModelResource):
 				bundle.data['parent'] = '#'
 			else:
 				bundle.data['parent'] = int(bundle.data['parent'][13:])
+
 			# 목록 조회 시 데이터를 줄이기 위해 content = None 처리
 			bundle.data['content'] = None
 		return bundle

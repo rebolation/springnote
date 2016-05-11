@@ -3,6 +3,7 @@ var tree = {
 	dndid: null,
 	dndpid: null,
 	lastselid: null,
+	searchmode: false,
 
 	//설정
 	jstreecore: function(){
