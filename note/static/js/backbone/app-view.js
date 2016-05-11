@@ -50,7 +50,7 @@ var app = app || {};
 				{
 					text: '새 항목',
 					completed: false,
-					author: '/api/v1/user/' + USERID,
+					// author: '/api/v1/user/' + USERID,
 					parent: '#',
 					order: app.notes.nextOrder(),
 					content: ''
@@ -69,7 +69,7 @@ var app = app || {};
 				{
 					text: '새 항목',
 					completed: false,
-					author: '/api/v1/user/' + USERID,
+					// author: '/api/v1/user/' + USERID,
 					parent: Number(tree.lastselid),
 					order: app.notes.nextOrder(),
 					content: ''
@@ -133,9 +133,10 @@ var app = app || {};
 				tree.searchmode = true;
 			}
 			if (e.which === ENTER_KEY && searchword === ""){
-				$('#jstree').jstree().settings.core.data = app.notes;
-				$('#jstree').jstree().refresh();				
-				tree.searchmode = false;
+				location.href="/"+USERPAGE;
+				// $('#jstree').jstree().settings.core.data = app.notes;
+				// $('#jstree').jstree().refresh();				
+				// tree.searchmode = false;
 			}
 		}
 	});

@@ -15,8 +15,9 @@ $(function () {
 	//   -> 로컬스토리지에서 데이터를 가져옴
 
 	// [R] collection.fetch -> GET
-	app.notes.fetch({reset: true}).done(function(){
-		$("#jstree").jstree(tree.jstreecore());
+	// fetch url을 notes의 url과 별도로 직접 지정
+	app.notes.fetch({reset: true, url:'/api/v1/note/' + USERPAGEURL}).done(function(){
+		$("#jstree").jstree(tree.jstreecore());		
 	});
 
 });

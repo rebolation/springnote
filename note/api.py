@@ -109,6 +109,11 @@ class NoteResource(ModelResource):
 
 	# backbone에서 보내온 데이터를 가공하여 저장
 	def hydrate(self, bundle):
+		# 요청이 POST일 때만 로그인아이디 -> author로 지정
+		# 요청이 PATCH일 때도 적용하면 다른 사람 노트를 수정할 수도 있음
+		if "POST" in str(bundle.request):
+			bundle.data['author'] = '/api/v1/user/' + str(bundle.request.user.id)
+
 		if bundle.data['parent'] == None or bundle.data['parent'] == "#":
 			bundle.data['parent'] = None
 		else:
@@ -133,7 +138,11 @@ class NoteResource(ModelResource):
 	def alter_list_data_to_serialize(self, request, data):
 		return data["objects"]
 
-	# # 파라미터 받아서 쿼리셋 처리
-	# def get_object_list(self, request):
-	# 	print(request.GET['user'])
-	# 	return super(NoteResource, self).get_object_list(request).filter(parent_id=162)
+	# 파라미터 받아서 쿼리셋 처리
+	def get_object_list(self, request):
+		userpage = request.GET.get('userpage','')
+		if userpage:
+			user = User.objects.get(username=userpage)
+			return super(NoteResource, self).get_object_list(request).filter(author_id=user.id)
+		else:
+			return super(NoteResource, self).get_object_list(request)

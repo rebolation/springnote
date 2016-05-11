@@ -65,7 +65,7 @@ $('#jstree').on("select_node.jstree", function (e, data) {
 	var id = data.node.id;
 	if(tree.lastselid != id) {
 		$.ajax({
-			url:'./note/'+id,
+			url:'/note/'+id,
 			// cache: false, //URL에 타임스탬프를 붙여 요청한다. 그런데 결과는 최신이 아니다. 왜 그러지?
 			success:function(html){
 				$('article h1').text(data.node.text);

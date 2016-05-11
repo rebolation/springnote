@@ -3,10 +3,15 @@ from django.http import HttpResponse
 from django.utils.html import escape
 from django.template import loader
 from .models import Note
+from django.contrib.auth.models import User
 
 
 def homepage(request):
 	return render(request, 'home.html')
+
+
+def userpage(request, userpage):
+	return render(request, 'userpage.html', {'userpage':userpage})
 
 
 def nav(request):
