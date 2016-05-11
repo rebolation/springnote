@@ -8,18 +8,20 @@ from .models import Note
 def homepage(request):
 	return render(request, 'home.html')
 
+
 def nav(request):
 	notes = Note.objects.filter(parent__isnull=True)
 	return HttpResponse(notes)
 
+
 def viewnote(request, pk):
 	note = Note.objects.get(pk=pk)
 	content = note.content
-	if content == None:
+	if content is None:
 		content = ''
 
-	#저장시 bleach.clean
-	#contenteditable=true 에서는 escape하지 않음
+	# 저장시 bleach.clean
+	# contenteditable=true 에서는 escape하지 않음
 	# if content: 
 	# 	content = escape(content)
 	# 	content = content.replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;")

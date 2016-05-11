@@ -96,11 +96,14 @@ class NoteResource(ModelResource):
 
 	# backbone으로 보낼 데이터를 가공하여 전송
 	def dehydrate(self, bundle):
-		if bundle.data['parent'] == None or bundle.data['parent'] == "#":
-			bundle.data['parent'] = '#'
-		else:
-			bundle.data['parent'] = int(bundle.data['parent'][13:])
-		# bundle.data['content'] = None
+		# 요청이 GET일 때만 가공(목록 순서 변경(PATCH)시 내부적으로는 dehydrate -> PUT 처리되므로 order만 patch하더라도 content가 None이 되는 경우 발생)
+		if "GET" in str(bundle.request):
+			if bundle.data['parent'] == None or bundle.data['parent'] == "#":
+				bundle.data['parent'] = '#'
+			else:
+				bundle.data['parent'] = int(bundle.data['parent'][13:])
+			# 목록 조회 시 데이터를 줄이기 위해 content = None 처리
+			bundle.data['content'] = None
 		return bundle
 
 	# backbone에서 보내온 데이터를 가공하여 저장

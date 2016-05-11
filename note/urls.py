@@ -1,6 +1,5 @@
 from django.conf.urls import url, include
 from note import views
-
 from tastypie.api import Api
 from .api import NavResource, NoteResource
 from .api import EntryResource, UserResource, TodoResource

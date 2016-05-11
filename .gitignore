@@ -4,6 +4,7 @@
 *.sublime-workspace
 __pycache__
 .DS_Store
+.idea
 .sass-cache
 myvenv
 virtualenv

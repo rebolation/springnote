@@ -3,6 +3,7 @@ from tastypie.utils.timezone import now
 from django.contrib.auth.models import User
 from django.utils.text import slugify
 
+
 class Todo(models.Model):
 	title = models.CharField(max_length=200)
 	order = models.IntegerField(default=0)
@@ -13,21 +14,22 @@ class Todo(models.Model):
 
 
 class Entry(models.Model):
-    user = models.ForeignKey(User)
-    pub_date = models.DateTimeField(default=now)
-    title = models.CharField(max_length=200)
-    slug = models.SlugField(null=True, blank=True)
-    body = models.TextField()
+	user = models.ForeignKey(User)
+	pub_date = models.DateTimeField(default=now)
+	title = models.CharField(max_length=200)
+	slug = models.SlugField(null=True, blank=True)
+	body = models.TextField()
 
-    def __unicode__(self):
-        return self.title
+	def __unicode__(self):
+		return self.title
 
-    def save(self, *args, **kwargs):
-        # For automatic slug generation.
-        if not self.slug:
-            self.slug = slugify(self.title)[:50]
+	def save(self, *args, **kwargs):
+		# For automatic slug generation.
+		if not self.slug:
+			self.slug = slugify(self.title)[:50]
 
-        return super(Entry, self).save(*args, **kwargs)
+		return super(Entry, self).save(*args, **kwargs)
+
 
 class Nav(models.Model):
 	author = models.ForeignKey(User)
@@ -35,6 +37,7 @@ class Nav(models.Model):
 
 	def __str__(self):
 		return str(self.author)
+
 
 class Note(models.Model):
 	author = models.ForeignKey(User)
@@ -47,3 +50,4 @@ class Note(models.Model):
 
 	def __str__(self):
 		return self.text
+
