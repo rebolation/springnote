@@ -103,7 +103,7 @@ class NoteResource(ModelResource):
 			else:
 				bundle.data['parent'] = int(bundle.data['parent'][13:])
 			# 목록 조회 시 데이터를 줄이기 위해 content = None 처리
-			bundle.data['content'] = None
+			# bundle.data['content'] = None
 		return bundle
 
 	# backbone에서 보내온 데이터를 가공하여 저장

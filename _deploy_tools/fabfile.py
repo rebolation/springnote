@@ -1,5 +1,5 @@
 from fabric.contrib.files import append, exists, sed
-from fabric.api import env, local, run, sudo
+from fabric.api import env, local, run, sudo, get
 import random
 import os, sys, time
 
@@ -101,13 +101,15 @@ def _setup_postgres_if_necessary():
 		sudo('sed -i "s/\(local[[:blank:]]*all[[:blank:]]*postgres[[:blank:]]*\)peer/\\1md5/g" /etc/postgresql/9.5/main/pg_hba.conf')
 		run('sudo -u postgres psql template1 -c "CREATE USER '+PROJECT_NAME+' WITH PASSWORD \'1234\' CREATEDB;"')
 		run('sudo -u postgres psql template1 -c "CREATE DATABASE '+PROJECT_NAME+' OWNER '+PROJECT_NAME+';"')
-		run('sudo /etc/init.d/postgresql restart')
+		#run('sudo /etc/init.d/postgresql restart')
+		sudo('/etc/init.d/postgresql restart')
 
 def _update_database():
 	if FETCH_ONLY:
 		return
 
-	run('sudo /etc/init.d/postgresql restart')
+	#run('sudo /etc/init.d/postgresql restart')
+	sudo('/etc/init.d/postgresql restart')
 	run('cd %s && %s/bin/python3 manage.py migrate --noinput' % (SOURCE_FOLDER, VIRTUALENV_FOLDER))
 
 def _update_gunicorn():
