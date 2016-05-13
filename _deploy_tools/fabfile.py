@@ -3,6 +3,16 @@ from fabric.api import env, local, run, sudo, get
 import random
 import os, sys, time
 
+def dbsync():
+	PROJECT_NAME = os.path.basename(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+	
+	run('pg_dump -U '+PROJECT_NAME+' '+PROJECT_NAME+' > '+PROJECT_NAME+'.sql')
+	get(''+PROJECT_NAME+'.sql', 'D:\\')
+	time.sleep(2)
+	local('D:\\DevTools\\PostgreSQL9.5\\bin\\psql -U '+PROJECT_NAME+' '+PROJECT_NAME+' < D:\\'+PROJECT_NAME+'.sql')
+	time.sleep(2)
+	local('del D:\\'+PROJECT_NAME+'.sql')
+
 def deploy(siteurl='', virtualenvdir='', staticdir='', deploytoolsdir='', fetchonly=False):
 	global PROJECT_NAME			# superlists
 	global USER_NAME			# rebo
@@ -99,6 +109,7 @@ def _setup_postgres_if_necessary():
 		sudo('touch /etc/postgresql/9.5/setup_flag.txt')
 		run('sudo -u postgres psql template1 -c "ALTER USER postgres with encrypted password \'1234\';"')
 		sudo('sed -i "s/\(local[[:blank:]]*all[[:blank:]]*postgres[[:blank:]]*\)peer/\\1md5/g" /etc/postgresql/9.5/main/pg_hba.conf')
+		sudo('sed -i "s/\(local[[:blank:]]*all[[:blank:]]*all[[:blank:]]*\)peer/\\1md5/g" /etc/postgresql/9.5/main/pg_hba.conf')
 		run('sudo -u postgres psql template1 -c "CREATE USER '+PROJECT_NAME+' WITH PASSWORD \'1234\' CREATEDB;"')
 		run('sudo -u postgres psql template1 -c "CREATE DATABASE '+PROJECT_NAME+' OWNER '+PROJECT_NAME+';"')
 		#run('sudo /etc/init.d/postgresql restart')
