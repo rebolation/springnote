@@ -12,7 +12,8 @@ var app = app || {};
 			'keydown #jstree': 'delete',
 			'keydown #search': 'search',
 			'click #newroot': 'newroot',
-			'click #newpost': 'newpost',
+			'click #newchild': 'newchild',
+			'click #newsibling': 'newsibling',
 			'click #savepost': 'savepost',
 			'click #removepost': 'removepost',
 		},
@@ -50,13 +51,11 @@ var app = app || {};
 				{
 					text: '새 항목',
 					completed: false,
-					// author: '/api/v1/user/' + USERID,
 					parent: '#',
 					order: app.notes.nextOrder(),
 					content: ''
 				}, {
 					success: function(response){
-						var id = tree.lastselid;
 						var lastselnode = $("#jstree").jstree().get_node(tree.lastselid);
 						$('#jstree').jstree().deselect_node(lastselnode);
 						var newid = $("#jstree").jstree().create_node('#', response.toJSON(), "last");
@@ -64,12 +63,11 @@ var app = app || {};
 				}
 			);
 		},		
-		newpost: function(){
+		newchild: function(){
 			app.notes.create(
 				{
 					text: '새 항목',
 					completed: false,
-					// author: '/api/v1/user/' + USERID,
 					parent: Number(tree.lastselid),
 					order: app.notes.nextOrder(),
 					content: ''
@@ -80,6 +78,25 @@ var app = app || {};
 					}
 				}
 			);
+		},
+		newsibling: function(){
+			var id = tree.lastselid;
+			var parent = $("#jstree").jstree().get_node(tree.lastselid).parent;
+			app.notes.create(
+				{
+					text: '새 항목',
+					completed: false,
+					parent: Number(parent),
+					order: app.notes.nextOrder(),
+					content: ''
+				}, {
+					success: function(response){
+						var lastselnode = $("#jstree").jstree().get_node(tree.lastselid);
+						$('#jstree').jstree().deselect_node(lastselnode);						
+						var newid = $("#jstree").jstree().create_node(parent, response.toJSON(), "last");
+					}
+				}
+			);			
 		},
 		savepost: function(){
 			var id = Number(tree.lastselid);

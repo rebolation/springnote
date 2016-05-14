@@ -87,6 +87,7 @@ class NoteResource(ModelResource):
 
 	class Meta:
 		queryset = Note.objects.order_by('order')
+		max_limit = None #settings.py에 API_LIMIT_PER_PAGE = 0 설정했더라도 리소스에 max_limit를 설정하지 않으면 1000개로 제한된다
 		resource_name = 'note' #미지정시 클래스명으로부터 모델 생성
 		filtering = { "id" : ALL }
 		fields = ['id', 'order', 'text', 'author', 'completed', 'content'] #id를 꼭 넣어줘야 PATCH등이 정상 작동하는 듯
@@ -124,7 +125,7 @@ class NoteResource(ModelResource):
 			bundle.data['content'] = bundle.data['content'].replace("\t","&nbsp;&nbsp;&nbsp;&nbsp;")
 			bundle.data['content'] = bleach.clean(
 				bundle.data['content'],
-				tags=['br', 'div', 'span', 'p', 'pre', 'code', 'blockquote'],
+				tags=['br', 'div', 'span', 'p', 'pre', 'code', 'blockquote', 'img', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ul', 'ol', 'li', 'table', 'tr', 'td'],
 				attributes={
 					'*': ['class'],
 					# '*': ['class', 'style'],
