@@ -70,6 +70,7 @@ $('#jstree').on("select_node.jstree", function (e, data) {
 			success:function(html){
 				$('article h1').text(data.node.text);
 				$('article .content').html(html);
+				$(window).scrollTop(0,0);
 			}
 		})
 	}
