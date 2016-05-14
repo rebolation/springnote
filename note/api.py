@@ -87,6 +87,7 @@ class NoteResource(ModelResource):
 
 	class Meta:
 		queryset = Note.objects.order_by('order')
+		# queryset = Note.objects.all()
 		max_limit = None #settings.py에 API_LIMIT_PER_PAGE = 0 설정했더라도 리소스에 max_limit를 설정하지 않으면 1000개로 제한된다
 		resource_name = 'note' #미지정시 클래스명으로부터 모델 생성
 		filtering = { "id" : ALL }

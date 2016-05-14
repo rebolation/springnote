@@ -42,7 +42,7 @@ class Nav(models.Model):
 class Note(models.Model):
 	author = models.ForeignKey(User)
 	parent = models.ForeignKey('self', null=True, blank=True, related_name='subnotes')
-	order = models.IntegerField(default=0)
+	order = models.IntegerField(db_index=True, default=0)
 	text = models.CharField(max_length=200)
 	content = models.TextField(null=True, blank=True)
 	regdate = models.DateTimeField(default=now)
