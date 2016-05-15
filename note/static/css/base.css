@@ -85,10 +85,12 @@ article {
   article > h1 {
     position: absolute;
     top: 70px;
-    min-width: 200px; }
+    min-width: 200px;
+    font-family: 'Raleway', 'Nanum Gothic'; }
   article .content {
     height: 100%;
     min-height: 100px;
+    line-height: 1.6;
     font-family: 'Raleway', 'Nanum Gothic'; }
     article .content p {
       margin-bottom: 10px; }

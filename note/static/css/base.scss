@@ -105,12 +105,14 @@ article {
         position: absolute;
         top: 70px;
         min-width: 200px;
+        font-family: 'Raleway', 'Nanum Gothic';
     }
     .content {
         height: 100%;
         min-height:100px;
-		// tab-size: 4;
-		font-family: 'Raleway', 'Nanum Gothic';
+        line-height:1.6;
+        // tab-size: 4;
+        font-family: 'Raleway', 'Nanum Gothic';
         p{
             margin-bottom:10px;
         }
