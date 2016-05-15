@@ -4,15 +4,18 @@ from django.utils.html import escape
 from django.template import loader
 from .models import Note
 from django.contrib.auth.models import User
-
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect
 
 def homepage(request):
 	return render(request, 'home.html')
 
-
 def userpage(request, userpage):
 	return render(request, 'userpage.html', {'userpage':userpage})
 
+@login_required
+def gohome(request):
+	return redirect('userpage', userpage=request.user.username)
 
 def nav(request):
 	notes = Note.objects.filter(parent__isnull=True)

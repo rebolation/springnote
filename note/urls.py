@@ -13,6 +13,7 @@ urlpatterns = [
 	url(r'^$', views.homepage, name='homepage'),
 	url(r'^(?P<userpage>[a-zA-Z0-9]+)/$', views.userpage, name='userpage'),
 	url(r'^accounts/login/$', login, name='login'),
+	url(r'^accounts/gohome/$', views.gohome, name='gohome'),
 	url(r'^accounts/logout/$', logout, {'next_page':'/'}, name='logout'), 
 	url(r'^api/', include(v1_api.urls)),
 	# url(r'^nav/$', views.nav, name='nav'),
