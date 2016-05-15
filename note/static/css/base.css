@@ -89,7 +89,7 @@ article {
   article .content {
     height: 100%;
     min-height: 100px;
-    font-family: 'Raleway', 'Noto Sans KR'; }
+    font-family: 'Raleway', 'Nanum Gothic'; }
     article .content p {
       margin-bottom: 10px; }
     article .content blockquote {
@@ -112,7 +112,7 @@ article {
         overflow-x: scroll;
         color: white;
         background-color: #444;
-        font-family: 'Raleway', 'Nanum Gothic Coding'; }
+        font-family: 'Raleway', 'Nanum Gothic'; }
 
 footer {
   position: absolute;
