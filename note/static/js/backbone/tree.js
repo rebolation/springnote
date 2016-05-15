@@ -71,6 +71,10 @@ $('#jstree').on("select_node.jstree", function (e, data) {
 				$('article h1').text(data.node.text);
 				$('article .content').html(html);
 				$(window).scrollTop(0,0);
+				var lastselnode = $("#jstree").jstree().get_node(id);
+				$("#jstree").jstree().close_all();
+				$("#jstree").jstree()._open_to(lastselnode);
+				$("#jstree").jstree().open_node(lastselnode);				
 			}
 		})
 	}

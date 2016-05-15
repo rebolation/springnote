@@ -76,6 +76,8 @@ div.gnb {
     margin: 3px auto; }
   div.gnb div.editor {
     margin-top: 20px; }
+    div.gnb div.editor a {
+      font-size: 13px; }
 
 article {
   margin-left: 300px;

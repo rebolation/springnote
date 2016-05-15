@@ -94,10 +94,12 @@ var app = app || {};
 					content: ''
 				}, {
 					success: function(response){
-						console.log("OK")
 						var lastselnode = $("#jstree").jstree().get_node(tree.lastselid);
-						$('#jstree').jstree().deselect_node(lastselnode);						
+						$('#jstree').jstree().deselect_node(lastselnode);
+						if(!lastselnode) parent = '#';
 						var newid = $("#jstree").jstree().create_node(parent, response.toJSON(), "last");
+						var newnode = $("#jstree").jstree().get_node(newid);
+						$("#jstree").jstree()._open_to(newnode);
 					}
 				}
 			);			
