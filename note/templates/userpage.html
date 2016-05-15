@@ -89,13 +89,12 @@
 			USERNAME = '{{ user.username }}';
 		{% endif %}
 	</script>
-	<script src="/static/js/backbone/backbonelocalstorage.js"></script>
 	<script src="/static/js/backbone/note.js"></script>
 	<script src="/static/js/backbone/notes.js"></script>
 	<script src="/static/js/backbone/note-view.js"></script>
-	<script src="/static/js/backbone/app-view.js"></script>
+	<script src="/static/js/backbone/app-view.js?{%now 'dhms'%}"></script>
 	<script src="/static/js/backbone/router.js"></script>
-	<script src="/static/js/backbone/app.js"></script>
-	<script src="/static/js/backbone/tree.js"></script>
+	<script src="/static/js/backbone/app.js?{%now 'dhms'%}"></script>
+	<script src="/static/js/backbone/tree.js?{%now 'dhms'%}"></script>
 </body>
 </html>
