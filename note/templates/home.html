@@ -76,8 +76,10 @@
 		{% endif %}
 
 		var USERID = '';
+		var USERNAME = '';
 		{% if user.is_authenticated %}
 			USERID = {{ user.id }};
+			USERNAME = '{{ user.username }}';
 		{% endif %}
 	</script>
 	<script src="/static/js/backbone/backbonelocalstorage.js"></script>

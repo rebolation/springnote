@@ -11,11 +11,14 @@ var app = app || {};
 			'keydown article': 'ctrl_s',
 			'keydown #jstree': 'delete',
 			'keydown #search': 'search',
-			'click #newroot': 'newroot',
 			'click #newchild': 'newchild',
 			'click #newsibling': 'newsibling',
 			'click #savepost': 'savepost',
 			'click #removepost': 'removepost',
+
+			'click #underline': 'editor_underline',
+			'click #bold': 'editor_bold',
+			'click #italic': 'editor_italic',
 		},
 		initialize: function () {
 			this.$search = this.$('#search');
@@ -91,6 +94,7 @@ var app = app || {};
 					content: ''
 				}, {
 					success: function(response){
+						console.log("OK")
 						var lastselnode = $("#jstree").jstree().get_node(tree.lastselid);
 						$('#jstree').jstree().deselect_node(lastselnode);						
 						var newid = $("#jstree").jstree().create_node(parent, response.toJSON(), "last");
@@ -108,7 +112,7 @@ var app = app || {};
 			}});
 		},
 		removepost: function(){
-			if(USERID == null) return;
+			if(USERID == null || USERNAME != USERPAGE) return;
 			if(tree.searchmode) { alert("검색화면에서는 삭제할 수 없습니다."); return; }
 			if(confirm("삭제할까요?") == false) { return; }
 
@@ -155,6 +159,17 @@ var app = app || {};
 				// $('#jstree').jstree().refresh();				
 				// tree.searchmode = false;
 			}
-		}
+		},
+
+		editor_underline: function(){
+			document.execCommand("underline", false, null);
+		},
+		editor_bold: function(){
+			document.execCommand("bold", false, null);
+		}, 		
+		editor_italic: function(){
+			document.execCommand("italic", false, null);
+		}, 
+
 	});
 })(jQuery);

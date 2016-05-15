@@ -1,14 +1,14 @@
 from django.contrib.auth.models import User
-from .models import Nav, Note
-from .models import Todo, Entry
+from .models import Note
 from tastypie import fields
-from tastypie.resources import ModelResource
+from tastypie.resources import ModelResource, Resource
 from tastypie.constants import ALL
 from tastypie.authorization import Authorization, DjangoAuthorization
 from tastypie.authentication import BasicAuthentication, SessionAuthentication
 from tastypie.serializers import Serializer
 from tastypie.cache import SimpleCache
 import bleach
+
 
 class UserResource(ModelResource):
 	class Meta:
@@ -52,7 +52,59 @@ class NoteAuthorization(Authorization):
 		else:
 			raise Unauthorized("no permission")
 
-		
+
+class NavResource(Resource):
+	id = fields.IntegerField(attribute='id')
+	text = fields.CharField(attribute='text')
+	author = fields.IntegerField(attribute='author_id')
+	parent = fields.IntegerField(attribute='parent_id', null=True, blank=True)
+	order = fields.IntegerField(attribute='order')
+	completed = fields.BooleanField(attribute='completed')
+
+	class Meta:
+		max_limit = None #settings.py에 API_LIMIT_PER_PAGE = 0 설정했더라도 리소스에 max_limit를 설정하지 않으면 1000개로 제한된다
+		include_resource_uri = False
+		always_return_data = True #POST후 id와 resource_uri를 backbone에 전달
+		# cache = SimpleCache(timeout=60*60)
+		authorization = NoteAuthorization()
+
+	def get_object_list(self, request):
+		userpage = request.GET.get('userpage','')
+		if userpage:
+			user = User.objects.get(username=userpage)
+			userid = user.id
+		else:
+			userid = 2
+		query = """
+			select id, "order", text, author_id, parent_id, completed
+			from note_note
+			where author_id = %s
+			order by "order"
+		"""
+		results = list(Note.objects.raw(query, [userid]))
+		return results
+
+	# def get_object_list(self, request):
+	# 	userpage = request.GET.get('userpage','')
+	# 	if userpage:
+	# 		user = User.objects.get(username=userpage)
+	# 		return super(NoteResource, self).get_object_list(request).filter(author_id=user.id)
+	# 	else:
+	# 		return super(NoteResource, self).get_object_list(request)		
+
+	def dehydrate(self, bundle):
+		if bundle.data['parent'] == None or bundle.data['parent'] == "#":
+			bundle.data['parent'] = '#'
+		bundle.data['author'] = '/api/v1/user/' + str(bundle.data['author'])
+		return bundle		
+
+	def obj_get_list(self, bundle, **kwargs):
+		return self.get_object_list(bundle.request)
+
+	def alter_list_data_to_serialize(self, request, data):
+		return data["objects"]
+
+
 class NoteResource(ModelResource):
 	author = fields.ForeignKey(UserResource, 'author')
 	parent = fields.ForeignKey('self', 'parent', null=True)
@@ -99,7 +151,7 @@ class NoteResource(ModelResource):
 			bundle.data['content'] = bundle.data['content'].replace("\t","&nbsp;&nbsp;&nbsp;&nbsp;")
 			bundle.data['content'] = bleach.clean(
 				bundle.data['content'],
-				tags=['br', 'div', 'span', 'p', 'pre', 'code', 'blockquote', 'img', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ul', 'ol', 'li', 'table', 'tr', 'td'],
+				tags=['br', 'div', 'span', 'p', 'pre', 'code', 'blockquote', 'img', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ul', 'ol', 'li', 'table', 'tr', 'td', 'b', 'strong', 'u', 'i', 'em'],
 				attributes={
 					'*': ['class'],
 					# '*': ['class', 'style'],
@@ -108,28 +160,6 @@ class NoteResource(ModelResource):
 				strip=True
 			)
 		return bundle
-
-	# def get_list(self, request, **kwargs):
-	# 	base_bundle = self.build_bundle(request=request)
-
-	# 	objects = self.cached_obj_get_list(bundle=base_bundle, **self.remove_api_resource_names(kwargs))
-
-	# 	# sorted_objects = self.apply_sorting(objects, options=request.GET)
-
-	# 	# paginator = self._meta.paginator_class(request.GET, sorted_objects, resource_uri=self.get_resource_uri(), limit=self._meta.limit, max_limit=self._meta.max_limit, collection_name=self._meta.collection_name)
-	# 	# to_be_serialized = paginator.page()
-
-	# 	# Dehydrate the bundles in preparation for serialization.
-	# 	# bundles = []
-
-	# 	# for obj in to_be_serialized[self._meta.collection_name]:
-	# 	# 	bundle = self.build_bundle(obj=obj, request=request)
-	# 	# 	bundles.append(self.full_dehydrate(bundle, for_list=True))
-
-	# 	# to_be_serialized[self._meta.collection_name] = bundles
-	# 	# to_be_serialized = self.alter_list_data_to_serialize(request, to_be_serialized)
-
-	# 	return self.create_response(request, objects)
 
 	# backbone collection fetch를 위해 objects만 보냄
 	def alter_list_data_to_serialize(self, request, data):

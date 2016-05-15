@@ -91,7 +91,7 @@ div.gnb {
         margin: 3px auto;
         //        border-radius: 12px;
     }
-    a#drawpost{
+    div.editor{
     	margin-top: 20px;
     }
 }
@@ -101,7 +101,7 @@ article {
     background: #fff;
     z-index: 999;
     padding: 150px 40px 100px 40px;
-    h1 {
+    >h1 {
         position: absolute;
         top: 70px;
         min-width: 200px;

@@ -8,7 +8,8 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 
 def homepage(request):
-	return render(request, 'home.html')
+	# return render(request, 'home.html')
+	return redirect('userpage', userpage='rebolation')
 
 def userpage(request, userpage):
 	return render(request, 'userpage.html', {'userpage':userpage})

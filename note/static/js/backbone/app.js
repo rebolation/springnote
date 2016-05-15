@@ -16,7 +16,7 @@ $(function () {
 
 	// [R] collection.fetch -> GET
 	// fetch url을 notes의 url과 별도로 직접 지정
-	app.notes.fetch({reset: true, url:'/api/v1/note/' + USERPAGEURL}).done(function(){
+	app.notes.fetch({reset: true, url:'/api/v1/nav/' + USERPAGEURL}).done(function(){
 		$("#jstree").jstree(tree.jstreecore());		
 	});
 

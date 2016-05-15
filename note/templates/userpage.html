@@ -27,13 +27,18 @@
 		{% if user.is_authenticated %}
 			<a href="/accounts/logout/" title="로그아웃"><i class="fa fa-key" aria-hidden="true"></i></a>
 			{% if user.username == userpage %}
-				<a href="#" id="newroot" title="최상위항목추가"><i class="fa fa-folder" aria-hidden="true"></i></a>
-				<a href="#" id="newchild" title="자식항목추가"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-				<a href="#" id="newsibling" title="형제항목추가"><i class="fa fa-file-o" aria-hidden="true"></i></a>
+				<a href="#" id="newchild" title="하위항목추가"><i class="fa fa-folder" aria-hidden="true"></i></a>
+				<a href="#" id="newsibling" title="항목추가"><i class="fa fa-file-o" aria-hidden="true"></i></a>
 				<a href="#" id="savepost" title="저장"><i class="fa fa-floppy-o" aria-hidden="true"></i></a>
 				<a href="#" id="lockpost" title="비밀글"><i class="fa fa-lock" aria-hidden="true"></i></a>
 				<a href="#" id="removepost" title="삭제"><i class="fa fa-remove" aria-hidden="true"></i></a>
-				<a href="#" id="drawpost" title="필기"><i class="fa fa-paint-brush" aria-hidden="true"></i></a>
+
+				<div class="editor">
+					<a href="#" id="underline" title="밑줄"><i class="fa fa-underline" aria-hidden="true"></i></a>
+					<a href="#" id="bold" title="굵게"><i class="fa fa-bold" aria-hidden="true"></i></a>
+					<a href="#" id="italic" title="이탤릭"><i class="fa fa-italic" aria-hidden="true"></i></a>
+					<!-- <a href="#" id="drawpost" title="필기"><i class="fa fa-paint-brush" aria-hidden="true"></i></a> -->
+				</div>
 			{% endif %}
 		{% else %}
 			<a href="/accounts/login/"><i class="fa fa-key" aria-hidden="true"></i></a>
@@ -44,7 +49,7 @@
 			<div class="content" contenteditable="true"></div>
 		</article>
 		<footer>
-			rebolation
+			{{userpage}}
 		</footer>		
 	</div>
 
@@ -78,8 +83,10 @@
 		{% endif %}
 
 		var USERID = '';
+		var USERNAME = '';
 		{% if user.is_authenticated %}
 			USERID = {{ user.id }};
+			USERNAME = '{{ user.username }}';
 		{% endif %}
 	</script>
 	<script src="/static/js/backbone/backbonelocalstorage.js"></script>

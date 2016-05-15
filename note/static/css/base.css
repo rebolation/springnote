@@ -74,7 +74,7 @@ div.gnb {
     background: #2d2d2d;
     color: white;
     margin: 3px auto; }
-  div.gnb a#drawpost {
+  div.gnb div.editor {
     margin-top: 20px; }
 
 article {
@@ -82,7 +82,7 @@ article {
   background: #fff;
   z-index: 999;
   padding: 150px 40px 100px 40px; }
-  article h1 {
+  article > h1 {
     position: absolute;
     top: 70px;
     min-width: 200px; }
