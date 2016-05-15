@@ -7,20 +7,8 @@ from tastypie.constants import ALL
 from tastypie.authorization import Authorization, DjangoAuthorization
 from tastypie.authentication import BasicAuthentication, SessionAuthentication
 from tastypie.serializers import Serializer
+from tastypie.cache import SimpleCache
 import bleach
-
-class TodoResource(ModelResource):
-	class Meta:
-		queryset = Todo.objects.all()
-		resource_name = 'todo' #미지정시 클래스명으로부터 모델 생성
-		filtering = { "id" : ALL }
-		always_return_data = True #POST후 id와 resource_uri를 backbone에 전달
-		authorization = Authorization()
-		# authentication = SessionAuthentication()
-
-	# backbone collection fetch를 위해 objects만 보냄
-	def alter_list_data_to_serialize(self, request, data):
-		return data["objects"]
 
 class UserResource(ModelResource):
 	class Meta:
@@ -29,22 +17,6 @@ class UserResource(ModelResource):
 		excludes = ['email', 'password', 'is_active', 'is_staff', 'is_superuser']
 		fields = ['username']
 		allowed_methods = ['get']
-
-class EntryResource(ModelResource):
-	user = fields.ForeignKey(UserResource, 'user')
-	class Meta:
-		queryset = Entry.objects.all()
-		resource_name = 'entry'
-		authorization = Authorization()
-		# authentication = SessionAuthentication()
-		# authorization = DjangoAuthorization()
-
-class NavResource(ModelResource):
-	class Meta:
-		queryset = Nav.objects.all()
-		resource_name = 'nav'
-		filtering = { "id" : ALL }
-
 
 class NoteAuthorization(Authorization):
 	# GET : 누구나
@@ -94,6 +66,7 @@ class NoteResource(ModelResource):
 		fields = ['id', 'order', 'text', 'author', 'completed', 'content'] #id를 꼭 넣어줘야 PATCH등이 정상 작동하는 듯
 		include_resource_uri = False
 		always_return_data = True #POST후 id와 resource_uri를 backbone에 전달
+		# cache = SimpleCache(timeout=60*60)
 		authorization = NoteAuthorization()
 
 	# backbone으로 보낼 데이터를 가공하여 전송
