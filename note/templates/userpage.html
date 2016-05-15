@@ -25,16 +25,18 @@
 		</nav>
 		<div class="gnb">
 		{% if user.is_authenticated %}
-            <a href="/accounts/logout/" title="로그아웃"><i class="fa fa-key" aria-hidden="true"></i></a>
-            <a href="#" id="newroot" title="최상위항목추가"><i class="fa fa-folder" aria-hidden="true"></i></a>
-            <a href="#" id="newchild" title="자식항목추가"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-            <a href="#" id="newsibling" title="형제항목추가"><i class="fa fa-file-o" aria-hidden="true"></i></a>
-            <a href="#" id="savepost" title="저장"><i class="fa fa-floppy-o" aria-hidden="true"></i></a>
-            <a href="#" id="lockpost" title="비밀글"><i class="fa fa-lock" aria-hidden="true"></i></a>
-            <a href="#" id="removepost" title="삭제"><i class="fa fa-remove" aria-hidden="true"></i></a>
-            <a href="#" id="drawpost" title="필기"><i class="fa fa-paint-brush" aria-hidden="true"></i></a>
+			<a href="/accounts/logout/" title="로그아웃"><i class="fa fa-key" aria-hidden="true"></i></a>
+			{% if user.username == userpage %}
+				<a href="#" id="newroot" title="최상위항목추가"><i class="fa fa-folder" aria-hidden="true"></i></a>
+				<a href="#" id="newchild" title="자식항목추가"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+				<a href="#" id="newsibling" title="형제항목추가"><i class="fa fa-file-o" aria-hidden="true"></i></a>
+				<a href="#" id="savepost" title="저장"><i class="fa fa-floppy-o" aria-hidden="true"></i></a>
+				<a href="#" id="lockpost" title="비밀글"><i class="fa fa-lock" aria-hidden="true"></i></a>
+				<a href="#" id="removepost" title="삭제"><i class="fa fa-remove" aria-hidden="true"></i></a>
+				<a href="#" id="drawpost" title="필기"><i class="fa fa-paint-brush" aria-hidden="true"></i></a>
+			{% endif %}
 		{% else %}
-            <a href="/accounts/login/"><i class="fa fa-key" aria-hidden="true"></i></a>
+			<a href="/accounts/login/"><i class="fa fa-key" aria-hidden="true"></i></a>
 		{% endif %}
 		</div>
 		<article>
