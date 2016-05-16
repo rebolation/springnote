@@ -1,20 +1,38 @@
-{% if form.errors %}
-<p>ID나 비밀번호가 일치하지 않습니다.</p>
-{% endif %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>스프링노트</title>
+	<link rel="stylesheet" href="/static/css/reset.css">
+	<link rel="stylesheet" href="/static/css/font.css">
+	<link rel="stylesheet" href="/static/css/base.css">
+	<link rel="stylesheet" href="/static/css/font-awesome-4.6.1/css/font-awesome.min.css">
+</head>
+<body>
+	<div class="login">
 
-<form method="POST" action="{% url 'login' %}">{% csrf_token %}
-	<table>
-		<tr>
-			<td>{{form.username.label_tag}}</td>
-			<td>{{form.username}}</td>
-		</tr>
-		<tr>
-			<td>{{form.password.label_tag}}</td>
-			<td>{{form.password}}</td>
-		</tr>
-	</table>
+		<form method="POST" action="{% url 'login' %}">{% csrf_token %}
+			<table>
+				<tr>
+					<!-- <td>{{form.username.label_tag}}</td> -->
+					<td><label for="id_username"><i class="fa fa-user fa-4x" aria-hidden="true"></i></label></td>
+					<td>{{form.username}}</td>
+				</tr>
+				<tr>
+					<!-- <td>{{form.password.label_tag}}</td> -->
+					<td><label for="id_password"><i class="fa fa-lock fa-4x" aria-hidden="true"></i></label></td>
+					<td>{{form.password}}</td>
+				</tr>
+			</table>
 
-	<input type="submit" value="login">
-	<input type="hidden" name="next" value="{{next}}">
+			<input type="submit" value="LOGIN">
+			<input type="hidden" name="next" value="{{next}}">
 
-</form>
+			{% if form.errors %}
+			<p>ID나 비밀번호가 일치하지 않습니다.</p>
+			{% endif %}
+
+		</form>
+	</div>
+</body>
+</html>
