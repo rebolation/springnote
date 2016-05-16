@@ -147,6 +147,9 @@ article {
         line-height: 1.4;
         // tab-size: 4;
         font-family: 'Raleway', 'Nanum Gothic';
+        a {
+        	text-decoration: underline;
+        }
         p {
             margin-bottom: 10px;
         }

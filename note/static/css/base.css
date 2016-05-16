@@ -106,6 +106,8 @@ article {
     min-height: 100px;
     line-height: 1.4;
     font-family: 'Raleway', 'Nanum Gothic'; }
+    article .content a {
+      text-decoration: underline; }
     article .content p {
       margin-bottom: 10px; }
     article .content blockquote {
