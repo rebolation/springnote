@@ -19,6 +19,9 @@ var app = app || {};
 			'click #underline': 'editor_underline',
 			'click #bold': 'editor_bold',
 			'click #italic': 'editor_italic',
+
+			'click #nav_prev': 'nav_prev',
+			'click #nav_next': 'nav_next',
 		},
 		initialize: function () {
 			this.$search = this.$('#search');
@@ -171,7 +174,20 @@ var app = app || {};
 		}, 		
 		editor_italic: function(){
 			document.execCommand("italic", false, null);
+		},
+		nav_prev: function(){
+			var id = Number(tree.lastselid);
+			var node = $("#jstree").jstree().get_node(id);
+			var moveto = $("#jstree").jstree().get_prev_dom(node);
+			$("#jstree").jstree().deselect_node(node);
+			$("#jstree").jstree().select_node(moveto);
+		}, 		
+		nav_next: function(){
+			var id = Number(tree.lastselid);
+			var node = $("#jstree").jstree().get_node(id);
+			var moveto = $("#jstree").jstree().get_next_dom(node);
+			$("#jstree").jstree().deselect_node(node);
+			$("#jstree").jstree().select_node(moveto);
 		}, 
-
 	});
 })(jQuery);

@@ -72,6 +72,24 @@ nav {
             color: #3f3030;
         }
     }
+   //  div.prevnext{
+	  //   a{
+	  //   	display:block;
+	  //       background-color: #38262C;
+	  //       color: white;
+	  //       text-indent: -9999px;
+	  //       width:60px;
+	  //       height:60px;
+	  //       position:absolute;
+	  //       bottom:-30px;
+	  //       right:-30px;
+			// -webkit-transform: rotate(45deg);
+			// -moz-transform: rotate(45deg);
+			// -ms-transform: rotate(45deg);
+			// -o-transform: rotate(45deg);
+			// transform: rotate(45deg);
+	  //   }    	
+   //  }
 }
 
 div.gnb {
@@ -109,6 +127,19 @@ article {
         top: 70px;
         min-width: 200px;
         font-family: 'Raleway', 'Nanum Gothic';
+    }
+    >p.author{
+		position: absolute;
+		top: 0;
+		right: 0;
+		z-index: 1000;
+		background-color: #2d2d2d;
+		color: white;
+		font-size: 12px;
+		text-align: right;
+		margin:3px;
+		margin-left: 300px;
+		padding: 1px 3px;
     }
     .content {
         height: 100%;
@@ -158,4 +189,5 @@ footer {
     margin-left: 300px;
     padding: 15px 15px 10px 15px;
     height: 45px;
+    overflow:hidden;
 }

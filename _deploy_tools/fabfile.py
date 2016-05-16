@@ -1,7 +1,11 @@
 from fabric.contrib.files import append, exists, sed
-from fabric.api import env, local, run, sudo, get
+from fabric.api import env, local, run, sudo, get, put
 import random
 import os, sys, time
+
+def upload():
+	USER_NAME = env.user
+	put('D:\\Git\\upload\\*.*', '/home/%s' % (USER_NAME,))
 
 def dbsync():
 	PROJECT_NAME = os.path.basename(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -9,6 +13,9 @@ def dbsync():
 	run('pg_dump -U '+PROJECT_NAME+' '+PROJECT_NAME+' > '+PROJECT_NAME+'.sql')
 	get(''+PROJECT_NAME+'.sql', 'D:\\')
 	time.sleep(2)
+	local('D:\\DevTools\\PostgreSQL9.5\\bin\\dropdb --if-exists -U '+PROJECT_NAME+' '+PROJECT_NAME)
+	local('D:\\DevTools\\PostgreSQL9.5\\bin\\createdb -U postgres -O '+PROJECT_NAME+' '+PROJECT_NAME)
+	time.sleep(1)
 	local('D:\\DevTools\\PostgreSQL9.5\\bin\\psql -U '+PROJECT_NAME+' '+PROJECT_NAME+' < D:\\'+PROJECT_NAME+'.sql')
 	time.sleep(2)
 	local('del D:\\'+PROJECT_NAME+'.sql')

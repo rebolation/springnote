@@ -74,7 +74,7 @@ $('#jstree').on("select_node.jstree", function (e, data) {
 				var lastselnode = $("#jstree").jstree().get_node(id);
 				$("#jstree").jstree().close_all();
 				$("#jstree").jstree()._open_to(lastselnode);
-				$("#jstree").jstree().open_node(lastselnode);				
+				$("#jstree").jstree().open_node(lastselnode);
 			}
 		})
 	}

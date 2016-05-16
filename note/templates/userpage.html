@@ -14,7 +14,6 @@
 	<script type="text/javascript" src="/static/js/jstree/jstree.min.js"></script>
 </head>
 <body>
-
 	<div id="noteapp" class="container ">
 		<nav>
 			<header>
@@ -22,6 +21,10 @@
 				<input id="search" type="search" placeholder="검색" required />
 			</header>
 			<div id="jstree" class="scroll"></div>
+			<!-- <div class="prevnext">
+				<a href="#" id="nav_prev" title="이전">이전</a>
+				<a href="#" id="nav_next" title="다음">다음</a>
+			</div> -->
 		</nav>
 		<div class="gnb">
 		{% if user.is_authenticated %}
@@ -52,27 +55,6 @@
 			{{userpage}}
 		</footer>		
 	</div>
-
-	<!-- <section class="noteapp">
-		<header class="header">
-			<h1>notes</h1>
-			<input class="new-note" placeholder="What needs to be done?" autofocus>
-		</header>
-		<section class="main">
-			<input class="toggle-all" id="toggle-all" type="checkbox">
-			<label for="toggle-all">Mark all as complete</label>
-			<ul class="note-list"></ul>
-		</section>
-		<footer class="footer"></footer>
-	</section> -->
-
-	<!-- <script type="text/template" id="item-template">
-		<div class="view">
-			<input class="toggle" type="checkbox" <%= completed ? 'checked' : '' %>>
-			<label><%- text %></label>
-			<button class="destroy"></button>
-		</div>
-	</script> -->
 
 	<script>
 		var USERPAGE = '';
