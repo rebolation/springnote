@@ -60,6 +60,21 @@ nav {
     nav div.scroll a.jstree-clicked {
       color: #3f3030; }
 
+div.prevnext {
+  position: fixed;
+  top: 50px;
+  right: 50px; }
+  div.prevnext a {
+    display: inline-block;
+    background-color: white;
+    color: #38262C;
+    border: 1px solid gray;
+    border-radius: 10px;
+    width: 40px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px; }
+
 div.gnb {
   position: fixed;
   top: 0;
