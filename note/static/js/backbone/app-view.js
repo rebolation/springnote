@@ -208,6 +208,11 @@ var app = app || {};
 			$("article").css("margin-left","0px");
 			$("article h1").css("font-size","32px");
 			$("article .content").css("font-size","28px");
+			$("body").css("background-color","#040537");
+			$("article").css("background-color","#040537");
+			$("article").css("color","white");
+			$(".container").css("box-shadow","0px 0px 0px");
+			$("footer").css("display","none");
 		}
 	});
 })(jQuery);
