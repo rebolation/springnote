@@ -89,6 +89,8 @@ div.gnb {
     background: #2d2d2d;
     color: white;
     margin: 3px auto; }
+  div.gnb a.colored {
+    color: gray; }
   div.gnb div.editor {
     margin-top: 20px; }
     div.gnb div.editor a {

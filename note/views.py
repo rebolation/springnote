@@ -29,6 +29,19 @@ def viewnote(request, pk):
 	if content is None:
 		content = ''
 
+	#비밀글 처리
+	ishidden = False
+	while True:
+		if note.ishidden:
+			ishidden = True
+			break
+		if not note.parent:
+			break
+		note = Note.objects.get(pk=note.parent.pk)
+	if ishidden and note.author.username != request.user.username:
+		content = "비밀글입니다."
+
+
 	# 저장시 bleach.clean
 	# contenteditable=true 에서는 escape하지 않음
 	# if content: 

@@ -59,6 +59,7 @@
 	</div>
 
 	<script>
+		//사용자별 페이지를 위한 변수
 		var USERPAGE = '';
 		var USERPAGEURL = '';
 		{% if userpage %}
@@ -66,6 +67,7 @@
 			USERPAGEURL = '?userpage='+USERPAGE;
 		{% endif %}
 
+		//로그인유저를 위한 변수
 		var USERID = '';
 		var USERNAME = '';
 		{% if user.is_authenticated %}

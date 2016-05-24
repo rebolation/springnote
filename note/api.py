@@ -59,7 +59,7 @@ class NavResource(Resource):
 	author = fields.IntegerField(attribute='author_id')
 	parent = fields.IntegerField(attribute='parent_id', null=True, blank=True)
 	order = fields.IntegerField(attribute='order')
-	completed = fields.BooleanField(attribute='completed')
+	ishidden = fields.BooleanField(attribute='ishidden')
 
 	class Meta:
 		max_limit = None #settings.py에 API_LIMIT_PER_PAGE = 0 설정했더라도 리소스에 max_limit를 설정하지 않으면 1000개로 제한된다
@@ -73,10 +73,9 @@ class NavResource(Resource):
 		if userpage:
 			user = User.objects.get(username=userpage)
 			userid = user.id
-		else:
-			userid = 2
+
 		query = """
-			select id, "order", text, author_id, parent_id, completed
+			select id, "order", text, author_id, parent_id, ishidden
 			from note_note
 			where author_id = %s
 			order by "order"
@@ -115,7 +114,7 @@ class NoteResource(ModelResource):
 		max_limit = None #settings.py에 API_LIMIT_PER_PAGE = 0 설정했더라도 리소스에 max_limit를 설정하지 않으면 1000개로 제한된다
 		resource_name = 'note' #미지정시 클래스명으로부터 모델 생성
 		filtering = { "id" : ALL }
-		fields = ['id', 'order', 'text', 'author', 'completed', 'content'] #id를 꼭 넣어줘야 PATCH등이 정상 작동하는 듯
+		fields = ['id', 'order', 'text', 'author', 'ishidden', 'content'] #id를 꼭 넣어줘야 PATCH등이 정상 작동하는 듯
 		include_resource_uri = False
 		always_return_data = True #POST후 id와 resource_uri를 backbone에 전달
 		# cache = SimpleCache(timeout=60*60)

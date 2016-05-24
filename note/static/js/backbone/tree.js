@@ -68,6 +68,11 @@ $('#jstree').on("select_node.jstree", function (e, data) {
 			url:'/note/'+id,
 			cache: false, //URL에 타임스탬프를 붙여 요청한다. 그런데 결과는 최신이 아니다. 왜 그러지?
 			success:function(html){
+				if(data.node.original.ishidden){
+					$("#lockpost").addClass("colored");
+				} else {
+					$("#lockpost").removeClass("colored");
+				}
 				$('article h1').text(data.node.text);
 				$('article .content').html(html);
 				$(window).scrollTop(0,0);

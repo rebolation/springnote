@@ -14,6 +14,7 @@ var app = app || {};
 			'click #newchild': 'newchild',
 			'click #newsibling': 'newsibling',
 			'click #savepost': 'savepost',
+			'click #lockpost': 'lockpost',
 			'click #removepost': 'removepost',
 			'click #fullscreen': 'fullscreen',
 
@@ -45,7 +46,7 @@ var app = app || {};
 		// 		app.notes.create(
 		// 			{
 		// 				text: this.$input.val().trim(),
-		// 				completed: false,
+		// 				ishidden: false,
 		// 				author: '/api/v1/user/1',
 		// 				parent: null,
 		// 				order: app.notes.nextOrder()
@@ -58,7 +59,7 @@ var app = app || {};
 			app.notes.create(
 				{
 					text: '새 항목',
-					completed: false,
+					ishidden: false,
 					parent: '#',
 					order: app.notes.nextOrder(),
 					content: ''
@@ -75,7 +76,7 @@ var app = app || {};
 			app.notes.create(
 				{
 					text: '새 항목',
-					completed: false,
+					ishidden: false,
 					parent: Number(tree.lastselid),
 					order: app.notes.nextOrder(),
 					content: ''
@@ -93,7 +94,7 @@ var app = app || {};
 			app.notes.create(
 				{
 					text: '새 항목',
-					completed: false,
+					ishidden: false,
 					parent: Number(parent),
 					order: app.notes.nextOrder(),
 					content: ''
@@ -117,6 +118,18 @@ var app = app || {};
 				$("#jstree").jstree().rename_node(node, response.get('text'));
 				$('article').animate({opacity : 0}, 500, function(){$('article').animate({opacity : 1})});				
 			}});
+		},
+		lockpost: function(){
+			var id = Number(tree.lastselid);
+			var model = _.where(app.notes.models, {"id":id})[0];
+			var ishidden = model.attributes.ishidden;
+			model.save({ 'ishidden': !ishidden }, {patch:true, success: function(response){
+				var node = $("#jstree").jstree().get_node(response.get('id'));
+				node.original.ishidden = !node.original.ishidden;
+				$("#lockpost").toggleClass("colored");
+				$("#jstree").jstree().rename_node(node, response.get('text'));
+				$('article').animate({opacity : 0}, 500, function(){$('article').animate({opacity : 1})});				
+			}});			
 		},
 		removepost: function(){
 			if(USERID == null || USERNAME != USERPAGE) return;
