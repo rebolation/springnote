@@ -148,7 +148,7 @@ class NoteResource(ModelResource):
 		# bleach.clean
 		#제목
 		bundle.data['text'] = bleach.clean(bundle.data['text'], strip=True)
-		
+
 		#본문
 		if bundle.data['content']:
 			bundle.data['content'] = bundle.data['content'].replace("\t","&nbsp;&nbsp;&nbsp;&nbsp;")
