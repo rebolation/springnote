@@ -146,6 +146,10 @@ class NoteResource(ModelResource):
 			bundle.data['parent'] = '/api/v1/note/' + str(bundle.data['parent'])
 
 		# bleach.clean
+		#제목
+		bundle.data['text'] = bleach.clean(bundle.data['text'], strip=True)
+		
+		#본문
 		if bundle.data['content']:
 			bundle.data['content'] = bundle.data['content'].replace("\t","&nbsp;&nbsp;&nbsp;&nbsp;")
 			bundle.data['content'] = bleach.clean(
@@ -158,6 +162,7 @@ class NoteResource(ModelResource):
 				# styles=['color', 'background', 'background-color', 'font-size', 'font-weight'],
 				strip=True
 			)
+
 		return bundle
 
 	# backbone collection fetch를 위해 objects만 보냄
