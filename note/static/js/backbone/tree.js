@@ -22,6 +22,9 @@ var tree = {
 						return true;
 					}
 			},
+			'dnd':{
+				'inside_pos':'last'
+			},
 			"plugins" : [
 				"dnd",
 				"state",
@@ -33,6 +36,7 @@ var tree = {
 			],
 	
 		}
+		$.jstree.defaults.dnd.inside_pos = 'last';
 	},
 
 	//드래그한 노드의 모든 형제노드의 order를 PATCH
