@@ -61,19 +61,23 @@ nav {
       color: #3f3030; }
 
 div.prevnext {
-  position: fixed;
-  top: 50px;
-  right: 50px; }
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%; }
   div.prevnext a {
     display: inline-block;
-    background-color: white;
     color: #38262C;
-    border: 1px solid gray;
-    border-radius: 10px;
-    width: 40px;
-    height: 30px;
+    width: 30px;
+    height: 100%;
+    line-height: 100%;
     text-align: center;
-    line-height: 30px; }
+    text-indent: -9999px;
+    line-height: 40px; }
+  div.prevnext a:hover {
+    background-color: #eee;
+    border-left: 1px solid #ccc;
+    text-indent: 0px; }
 
 div.gnb {
   position: fixed;
@@ -148,6 +152,8 @@ article {
         color: white;
         background-color: #444;
         font-family: 'Raleway', 'Nanum Gothic'; }
+    article .content img {
+      max-width: 100%; }
 
 footer {
   position: absolute;

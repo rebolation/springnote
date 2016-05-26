@@ -156,7 +156,7 @@ class NoteResource(ModelResource):
 				bundle.data['content'],
 				tags=['br', 'div', 'span', 'p', 'pre', 'code', 'blockquote', 'a', 'img', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ul', 'ol', 'li', 'table', 'tr', 'td', 'b', 'strong', 'u', 'i', 'em'],
 				attributes={
-					'*': ['class'],
+					'*': ['class', 'src', 'href'],
 					# '*': ['class', 'style'],
 				},
 				# styles=['color', 'background', 'background-color', 'font-size', 'font-weight'],

@@ -12,6 +12,7 @@ class Note(models.Model):
 	regdate = models.DateTimeField(default=now)
 	ishidden = models.BooleanField(default=False)
 
+	#tastypie 노트전체목록을 위해 author, parent를 단축함 (http://tech.swamps.io/django-tastypie-tutorial-part-iii/)
 	def to_dict(self):
 		return {
 			'id': self.pk, 

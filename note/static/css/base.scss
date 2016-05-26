@@ -74,20 +74,31 @@ nav {
     }
 }
 div.prevnext{
-	position:fixed;
-	top: 50px;
-	right: 50px;
+	// position:fixed;
+	// top: 50px;
+	// right: 50px;
+	position:absolute;
+	top:0;
+	right:0;
+	height:100%;
 	a{
 		display:inline-block;
-		background-color: white;
 		color: #38262C;
-		border: 1px solid gray;
-		border-radius:10px;
-		width:40px;
-		height:30px;
+		width:30px;
+		height:100%;
+		line-height:100%;
 		text-align: center;
-		line-height:30px;
-	}    	
+		text-indent:-9999px;
+		line-height:40px;
+	}
+	a:hover{
+		background-color: #eee;
+		border-left: 1px solid #ccc;
+		// border: 1px solid gray;
+		// border-radius:10px;
+		text-indent:0px;
+		// background: url('/static/corner.png');
+	}
 }
 div.gnb {
     position: fixed;
@@ -176,6 +187,9 @@ article {
                 background-color: #444;
                 font-family: 'Raleway', 'Nanum Gothic';
             }
+        }
+        img {
+        	max-width: 100%;
         }
     }
 }
