@@ -57,6 +57,39 @@ nav {
         height: 100%;
         overflow-x: hidden;
         overflow-y: scroll;
+
+        ul {
+        	padding-bottom:5px;
+        }
+
+		>ul>li {
+			background-color:#3f3030 !important;
+			>ul>li {
+				background-color:#483737 !important;
+				>ul>li {
+					background-color:#604A4A !important;
+					>ul>li {
+						background-color:#6E5353 !important;
+						>ul>li {
+							background-color:#7D5D5D !important;
+							>ul>li {
+								background-color:#926C6C !important;
+								>ul>li {
+									background-color:#9E7878 !important;
+									>ul>li {
+										background-color:#AE8585 !important;
+										>ul>li {
+											background-color:#BD9393 !important;
+										}											
+									}									
+								}									
+							}								
+						}						
+					}					
+				}				
+			}
+		}
+
         .jstree-node {
             margin-left: 10px;
             font-size: 13px;

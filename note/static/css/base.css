@@ -49,6 +49,26 @@ nav {
     height: 100%;
     overflow-x: hidden;
     overflow-y: scroll; }
+    nav div.scroll ul {
+      padding-bottom: 5px; }
+    nav div.scroll > ul > li {
+      background-color: #3f3030 !important; }
+      nav div.scroll > ul > li > ul > li {
+        background-color: #483737 !important; }
+        nav div.scroll > ul > li > ul > li > ul > li {
+          background-color: #604A4A !important; }
+          nav div.scroll > ul > li > ul > li > ul > li > ul > li {
+            background-color: #6E5353 !important; }
+            nav div.scroll > ul > li > ul > li > ul > li > ul > li > ul > li {
+              background-color: #7D5D5D !important; }
+              nav div.scroll > ul > li > ul > li > ul > li > ul > li > ul > li > ul > li {
+                background-color: #926C6C !important; }
+                nav div.scroll > ul > li > ul > li > ul > li > ul > li > ul > li > ul > li > ul > li {
+                  background-color: #9E7878 !important; }
+                  nav div.scroll > ul > li > ul > li > ul > li > ul > li > ul > li > ul > li > ul > li > ul > li {
+                    background-color: #AE8585 !important; }
+                    nav div.scroll > ul > li > ul > li > ul > li > ul > li > ul > li > ul > li > ul > li > ul > li > ul > li {
+                      background-color: #BD9393 !important; }
     nav div.scroll .jstree-node {
       margin-left: 10px;
       font-size: 13px; }
