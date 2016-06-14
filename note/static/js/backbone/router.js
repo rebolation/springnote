@@ -8,6 +8,8 @@ var app = app || {};
             "note/:id": "view",
             "": "visitroot"
         },
+
+        //라우팅 시 본문을 불러온다
         view: function( id ) {
 			if(tree == undefined || tree.lastselid != id) {
 				$.ajax({
@@ -23,12 +25,14 @@ var app = app || {};
 						$("#jstree").jstree().close_all();
 						$("#jstree").jstree()._open_to(lastselnode);
 						$("#jstree").jstree().open_node(lastselnode);
-						app.router.navigate('//note/' + id);
+						app.router.navigate('//note/' + id + '/');
 						tree.lastselid = id;
 					}
 				})
 			}
         },
+
+        //노트id 없이 사용자 기본 홈 접속 시...(tree.js에서 처리)
         visitroot: function() {
         	tree.visitroot = true;
         }

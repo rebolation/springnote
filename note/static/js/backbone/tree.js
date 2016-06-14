@@ -57,6 +57,7 @@ var tree = {
 	}
 };
 
+//노트 id 없이 사용자 기본 홈으로 접속시 첫번째 노트를 보여준다
 $('#jstree').on('ready.jstree', function(){
 	if(tree.visitroot) {
 		var id = $("li:first-child").attr("id");
