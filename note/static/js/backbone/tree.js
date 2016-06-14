@@ -4,6 +4,7 @@ var tree = {
 	dndpid: null,
 	lastselid: null,
 	searchmode: false,
+	visitroot: false,
 
 	//설정
 	jstreecore: function(){
@@ -56,6 +57,14 @@ var tree = {
 	}
 };
 
+$('#jstree').on('ready.jstree', function(){
+	if(tree.visitroot) {
+		var id = $("li:first-child").attr("id");
+		$("#jstree").jstree().select_node(id);
+	}
+});
+
+
 //드래그한 노드의 parent를 PATCH & updateorder 호출
 $(document).on('dnd_stop.vakata', function (e, data) {
 	var id = Number(tree.dndid);
@@ -67,27 +76,14 @@ $(document).on('dnd_stop.vakata', function (e, data) {
 //노드선택(읽기)
 $('#jstree').on("select_node.jstree", function (e, data) {
 	var id = data.node.id;
-	if(tree.lastselid != id) {
-		$.ajax({
-			url:'/note/'+id,
-			cache: false, //URL에 타임스탬프를 붙여 요청한다. 그런데 결과는 최신이 아니다. 왜 그러지?
-			success:function(html){
-				if(data.node.original.ishidden){
-					$("#lockpost").addClass("colored");
-				} else {
-					$("#lockpost").removeClass("colored");
-				}
-				$('article h1').text(data.node.text);
-				$('article .content').html(html);
-				$(window).scrollTop(0,0);
-				var lastselnode = $("#jstree").jstree().get_node(id);
-				$("#jstree").jstree().close_all();
-				$("#jstree").jstree()._open_to(lastselnode);
-				$("#jstree").jstree().open_node(lastselnode);
-			}
-		})
-	}
-	tree.lastselid = id;
+	app.router.navigate('//note/' + id);
+
+	//비밀글 아이콘 토글
+	if(data.node.original.ishidden){
+		$("#lockpost").addClass("colored");
+	} else {
+		$("#lockpost").removeClass("colored");
+	}	
 });
 
 //노드추가
