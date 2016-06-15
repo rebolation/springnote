@@ -25,7 +25,7 @@ var app = app || {};
 						$("#jstree").jstree().close_all();
 						$("#jstree").jstree()._open_to(lastselnode);
 						$("#jstree").jstree().open_node(lastselnode);
-						app.router.navigate('//note/' + id + '/');
+						app.router.navigate('//note/' + id);
 						tree.lastselid = id;
 					}
 				})
