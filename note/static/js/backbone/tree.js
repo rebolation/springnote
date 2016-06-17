@@ -28,8 +28,8 @@ var tree = {
 			},
 			"plugins" : [
 				"dnd",
-				"state",
 				"wholerow",
+				// "state", //백본라우터 적용으로 URL에 맞춰 노드가 열리므로, 노드 열고 닫힌 상태를 저장할 필요가 없음...
 				// "contextmenu",
 				// "types",
 				// "sort",
@@ -57,8 +57,13 @@ var tree = {
 	}
 };
 
-//노트 id 없이 사용자 기본 홈으로 접속시 첫번째 노트를 보여준다
+// 노트 목록 준비
 $('#jstree').on('ready.jstree', function(){
+
+	//목록이 준비되면 백본히스토리를 시작(준비 전에 시작하면 router.js의 $("#jstree").jstree() 등이 오동작)
+	Backbone.history.start();
+
+	//노트 id 없이 사용자 기본 홈으로 접속시 첫번째 노트를 보여준다
 	if(tree.visitroot) {
 		var id = $("li:first-child").attr("id");
 		$("#jstree").jstree().select_node(id);
