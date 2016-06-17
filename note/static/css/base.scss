@@ -1,3 +1,7 @@
+@media screen and (min-width: 640px) {}
+
+@media screen and (max-width:639px) {}
+
 body {
     background-color: #ddd;
     overflow-y: scroll;
@@ -14,6 +18,45 @@ div.container {
     box-shadow: 0px 0px 15px #aaa;
 }
 
+.menutoggle {
+    position: fixed;
+    right: 15px;
+    bottom: 15px;
+    text-align: center;
+    line-height: 50px;
+    background: #bc003b;
+    font-weight: bold;
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+@media screen and (min-width: 640px) {
+    .menutoggle {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 639px) {
+    .menutoggle {
+        display: block;
+    }
+    // nav {
+    // 	display: none;
+    // }
+    // div.gnb {
+    // 	display: none;
+    // }
+}
+
+.hidden {
+    // display: none;
+    visibility: hidden;
+}
+
 nav {
     position: fixed;
     top: 0;
@@ -23,7 +66,12 @@ nav {
     overflow-y: hidden;
     background-color: #3f3030;
     border-left: 40px solid #2d2d2d;
+    z-index: 998;
     color: #e5e5e5;
+    @media screen and (max-width: 639px) {
+        width: 100%;
+        bottom: -40px;
+    }
     header {
         position: absolute;
         top: 0px;
@@ -57,39 +105,39 @@ nav {
         height: 100%;
         overflow-x: hidden;
         overflow-y: scroll;
-
+	    @media screen and (max-width: 639px) {
+	        width: 100%;
+	    }        
         ul {
-        	padding-bottom:5px;
+            padding-bottom: 5px;
         }
-
-		>ul>li {
-			background-color:#3f3030 !important;
-			>ul>li {
-				background-color:#483737 !important;
-				>ul>li {
-					background-color:#604A4A !important;
-					>ul>li {
-						background-color:#6E5353 !important;
-						>ul>li {
-							background-color:#7D5D5D !important;
-							>ul>li {
-								background-color:#926C6C !important;
-								>ul>li {
-									background-color:#9E7878 !important;
-									>ul>li {
-										background-color:#AE8585 !important;
-										>ul>li {
-											background-color:#BD9393 !important;
-										}											
-									}									
-								}									
-							}								
-						}						
-					}					
-				}				
-			}
-		}
-
+        >ul>li {
+            background-color: #3f3030 !important;
+            >ul>li {
+                background-color: #483737 !important;
+                >ul>li {
+                    background-color: #604A4A !important;
+                    >ul>li {
+                        background-color: #6E5353 !important;
+                        >ul>li {
+                            background-color: #7D5D5D !important;
+                            >ul>li {
+                                background-color: #926C6C !important;
+                                >ul>li {
+                                    background-color: #9E7878 !important;
+                                    >ul>li {
+                                        background-color: #AE8585 !important;
+                                        >ul>li {
+                                            background-color: #BD9393 !important;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
         .jstree-node {
             margin-left: 10px;
             font-size: 13px;
@@ -106,33 +154,35 @@ nav {
         }
     }
 }
-div.prevnext{
-	// position:fixed;
-	// top: 50px;
-	// right: 50px;
-	position:absolute;
-	top:0;
-	right:0;
-	height:100%;
-	a{
-		display:inline-block;
-		color: #38262C;
-		width:30px;
-		height:100%;
-		line-height:100%;
-		text-align: center;
-		text-indent:-9999px;
-		line-height:40px;
-	}
-	a:hover{
-		background-color: #eee;
-		border-left: 1px solid #ccc;
-		// border: 1px solid gray;
-		// border-radius:10px;
-		text-indent:0px;
-		// background: url('/static/corner.png');
-	}
+
+div.prevnext {
+    // position:fixed;
+    // top: 50px;
+    // right: 50px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    a {
+        display: inline-block;
+        color: #38262C;
+        width: 30px;
+        height: 100%;
+        line-height: 100%;
+        text-align: center;
+        text-indent: -9999px;
+        line-height: 40px;
+    }
+    a:hover {
+        background-color: #eee;
+        border-left: 1px solid #ccc;
+        // border: 1px solid gray;
+        // border-radius:10px;
+        text-indent: 0px;
+        // background: url('/static/corner.png');
+    }
 }
+
 div.gnb {
     position: fixed;
     top: 0;
@@ -151,7 +201,7 @@ div.gnb {
         //        border-radius: 12px;
     }
     a.colored {
-    	color: gray;
+        color: gray;
     }
     div.editor {
         margin-top: 20px;
@@ -166,11 +216,19 @@ article {
     background: #fff;
     z-index: 999;
     padding: 150px 40px 100px 40px;
+    text-align: justify;
+    @media screen and (max-width: 639px) {
+        margin-left: 0px;
+        padding: 80px 20px 20px 20px;
+    }
     >h1 {
         position: absolute;
         top: 70px;
         min-width: 200px;
         font-family: 'Raleway', 'Nanum Gothic';
+	    @media screen and (max-width: 639px) {
+	        top: 30px;
+	    }        
     }
     >p.author {
         position: absolute;
@@ -192,7 +250,7 @@ article {
         // tab-size: 4;
         font-family: 'Raleway', 'Nanum Gothic';
         a {
-        	text-decoration: underline;
+            text-decoration: underline;
         }
         p {
             margin-bottom: 10px;
@@ -222,7 +280,7 @@ article {
             }
         }
         img {
-        	max-width: 100%;
+            max-width: 100%;
         }
     }
 }
@@ -240,6 +298,9 @@ footer {
     padding: 15px 15px 10px 15px;
     height: 45px;
     overflow: hidden;
+    @media screen and (max-width: 639px) {
+        display: none;
+    }
 }
 
 div.login {
@@ -279,9 +340,9 @@ div.login {
         font-weight: bold;
     }
     p {
-    	position: absolute;
-    	bottom: 20px;
-    	left: 70px;
-    	color:white;
+        position: absolute;
+        bottom: 20px;
+        left: 70px;
+        color: white;
     }
 }

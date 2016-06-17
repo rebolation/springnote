@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />	
 	<title>스프링노트</title>
 	<script type="text/javascript" src="/static/js/jquery-1.12.3.min.js"></script>
 	<script type="text/javascript" src="/static/js/underscore-min.js"></script>
@@ -56,6 +58,13 @@
 		<footer>
 			{{userpage}}
 		</footer>		
+        <div class="menutoggle">메뉴</div>
+        <script>
+            $(".menutoggle").on("click", function () {
+                $("nav").toggleClass('hidden');
+                $("div.gnb").toggleClass('hidden');
+            })
+        </script>		
 	</div>
 
 	<script>
