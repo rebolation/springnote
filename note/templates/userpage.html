@@ -17,54 +17,50 @@
 </head>
 <body>
 	<div id="noteapp" class="container ">
+		<article>
+			<h1 contenteditable="true"></h1>
+			<div class="content" contenteditable="true"></div>
+			<div class="prev">
+				<a href="javascript:void(0)" id="nav_prev" title="이전"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+			</div>
+			<div class="next">
+				<a href="javascript:void(0)" id="nav_next" title="다음"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+			</div>
+		</article>	
 		<nav>
 			<header>
 				<h1><a href="/">SPRINGNOTE</a></h1>
 				<input id="search" type="search" placeholder="검색" required />
 			</header>
 			<div id="jstree" class="scroll"></div>
-		</nav>
-		<div class="gnb">
-		{% if user.is_authenticated %}
-			<a href="/accounts/logout/" title="로그아웃"><i class="fa fa-key" aria-hidden="true"></i></a>
-			{% if user.username == userpage %}
-				<a href="javascript:void(0);" id="newsibling" title="항목추가"><i class="fa fa-file-o" aria-hidden="true"></i></a>
-				<a href="javascript:void(0);" id="newchild" title="하위항목추가"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-				<a href="javascript:void(0);" id="savepost" title="저장"><i class="fa fa-floppy-o" aria-hidden="true"></i></a>
-				<a href="javascript:void(0);" id="lockpost" title="비밀글"><i class="fa fa-lock" aria-hidden="true"></i></a>
-				<a href="javascript:void(0);" id="removepost" title="삭제"><i class="fa fa-remove" aria-hidden="true"></i></a>
+			<div class="gnb">
+			{% if user.is_authenticated %}
+				<a href="/accounts/logout/" title="로그아웃"><i class="fa fa-key" aria-hidden="true"></i></a>
+				{% if user.username == userpage %}
+					<a href="javascript:void(0);" id="newsibling" title="항목추가"><i class="fa fa-file-o" aria-hidden="true"></i></a>
+					<a href="javascript:void(0);" id="newchild" title="하위항목추가"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+					<a href="javascript:void(0);" id="savepost" title="저장"><i class="fa fa-floppy-o" aria-hidden="true"></i></a>
+					<a href="javascript:void(0);" id="lockpost" title="비밀글"><i class="fa fa-lock" aria-hidden="true"></i></a>
+					<a href="javascript:void(0);" id="removepost" title="삭제"><i class="fa fa-remove" aria-hidden="true"></i></a>
 
-				<div class="editor">
-					<a href="javascript:void(0);" id="underline" title="밑줄"><i class="fa fa-underline" aria-hidden="true"></i></a>
-					<a href="javascript:void(0);" id="bold" title="굵게"><i class="fa fa-bold" aria-hidden="true"></i></a>
-					<a href="javascript:void(0);" id="italic" title="이탤릭"><i class="fa fa-italic" aria-hidden="true"></i></a>
-					<a href="javascript:void(0);" id="ul" title="UL"><i class="fa fa-list" aria-hidden="true"></i></a>
-					<!-- <a href="javascript:void(0);" id="drawpost" title="필기"><i class="fa fa-paint-brush" aria-hidden="true"></i></a> -->
-				</div>
+					<div class="editor">
+						<a href="javascript:void(0);" id="underline" title="밑줄"><i class="fa fa-underline" aria-hidden="true"></i></a>
+						<a href="javascript:void(0);" id="bold" title="굵게"><i class="fa fa-bold" aria-hidden="true"></i></a>
+						<a href="javascript:void(0);" id="italic" title="이탤릭"><i class="fa fa-italic" aria-hidden="true"></i></a>
+						<a href="javascript:void(0);" id="ul" title="UL"><i class="fa fa-list" aria-hidden="true"></i></a>
+						<!-- <a href="javascript:void(0);" id="drawpost" title="필기"><i class="fa fa-paint-brush" aria-hidden="true"></i></a> -->
+					</div>
+				{% endif %}
+			{% else %}
+				<a href="/accounts/login/" title="로그인"><i class="fa fa-key" aria-hidden="true"></i></a>
 			{% endif %}
-		{% else %}
-			<a href="/accounts/login/" title="로그인"><i class="fa fa-key" aria-hidden="true"></i></a>
-		{% endif %}
-			<a href="javascript:void(0);" id="fullscreen" title="전체화면"><i class="fa fa-tv" aria-hidden="true"></i></a>
-		</div>
-		<article>
-			<h1 contenteditable="true"></h1>
-			<div class="content" contenteditable="true"></div>
-			<div class="prevnext">
-<!-- 				<a href="javascript:void(0)" id="nav_prev" title="이전"><i class="fa fa-arrow-left" aria-hidden="true"></i></a> -->
-				<a href="javascript:void(0)" id="nav_next" title="다음"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+				<a href="javascript:void(0);" id="fullscreen" title="전체화면"><i class="fa fa-tv" aria-hidden="true"></i></a>
 			</div>
-		</article>
+		</nav>
 		<footer>
 			{{userpage}}
-		</footer>		
-        <div class="menutoggle">메뉴</div>
-        <script>
-            $(".menutoggle").on("click", function () {
-                $("nav").toggleClass('hidden');
-                $("div.gnb").toggleClass('hidden');
-            })
-        </script>		
+		</footer>
+	    <div id="menutoggle">메뉴</div>
 	</div>
 
 	<script>

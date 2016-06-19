@@ -25,6 +25,8 @@ var app = app || {};
 
 			'click #nav_prev': 'nav_prev',
 			'click #nav_next': 'nav_next',
+
+			'click #menutoggle': 'menutoggle'
 		},
 		initialize: function () {
 			this.$search = this.$('#search');
@@ -200,11 +202,7 @@ var app = app || {};
    //          range.insertNode(frag);
 		},
 		nav_prev: function(){
-			var id = Number(tree.lastselid);
-			var node = $("#jstree").jstree().get_node(id);
-			var moveto = $("#jstree").jstree().get_prev_dom(node);
-			$("#jstree").jstree().deselect_node(node);
-			$("#jstree").jstree().select_node(moveto);
+			window.history.back();
 		}, 		
 		nav_next: function(){
 			var id = Number(tree.lastselid);
@@ -226,6 +224,16 @@ var app = app || {};
 			$("article").css("color","white");
 			$(".container").css("box-shadow","0px 0px 0px");
 			$("footer").css("display","none");
+		},
+
+		menutoggle: function(){
+            $("nav").toggleClass('hidden');
+            if ($("nav").hasClass('hidden')) {
+            	window.scrollTo(0,0);
+            } else{
+            	window.scrollTo(0,$('nav')[0].offsetTop);
+            }
 		}
+
 	});
 })(jQuery);
