@@ -33,6 +33,9 @@ var app = app || {};
 		// 	this.$list = $('.note-list');
 		// 	this.listenTo(app.notes, 'add', this.addOne);
 		// 	this.listenTo(app.notes, 'reset', this.addAll);
+			// if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|OperaMini/i.test(navigator.userAgent)) {
+			//     this.menutoggle();
+			// }
 		},
 		addOne: function (note) {
 			var view = new app.NoteView({ model: note });

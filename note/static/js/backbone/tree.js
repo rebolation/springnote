@@ -38,6 +38,7 @@ var tree = {
 	
 		}
 		$.jstree.defaults.dnd.inside_pos = 'last';
+		$.jstree.defaults.dnd.touch = 'selected';
 	},
 
 	//드래그한 노드의 모든 형제노드의 order를 PATCH
@@ -81,6 +82,12 @@ $(document).on('dnd_stop.vakata', function (e, data) {
 
 //노드선택(읽기)
 $('#jstree').on("select_node.jstree", function (e, data) {
+
+	//모바일일 때 목록 끄기
+	if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|OperaMini/i.test(navigator.userAgent)) {
+        $("nav").addClass('hidden');
+	}
+
 	var id = data.node.id;
 	app.router.navigate('//note/' + id);
 
@@ -89,7 +96,8 @@ $('#jstree').on("select_node.jstree", function (e, data) {
 		$("#lockpost").addClass("colored");
 	} else {
 		$("#lockpost").removeClass("colored");
-	}	
+	}
+
 });
 
 //노드추가

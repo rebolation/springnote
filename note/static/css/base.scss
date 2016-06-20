@@ -16,31 +16,52 @@ div.container {
     box-shadow: 0px 0px 15px #aaa;
 }
 
-#menutoggle {
-    position: fixed;
-    right: 15px;
-    bottom: 15px;
-    text-align: center;
-    line-height: 50px;
-    background: #bc003b;
-    font-weight: bold;
-    color: white;
-    width: 50px;
-    height: 50px;
-    border-radius: 25px;
-    cursor: pointer;
+aside {
+	position: fixed;
+	bottom: 0;
+	padding: 10px;
+	width: 100%;
+	max-width: 1200px;
+	text-align:right;
     z-index: 1000;
+	a {
+	    // right: 15px;
+	    // bottom: 15px;
+	    display: inline-block;
+	    text-align: center;
+	    line-height: 50px;
+	    background: #bc003b;
+	    font-weight: bold;
+	    color: white;
+	    width: 50px;
+	    height: 50px;
+	    border-radius: 25px;
+	    cursor: pointer;
+	}
 }
 
 @media screen and (min-width: 640px) {
-    #menutoggle {
+    aside {
         display: none;
     }
 }
 
 @media screen and (max-width: 639px) {
-    #menutoggle {
+    aside {
         display: block;
+    }
+    div.prev, div.next {
+        display: none;
+    }        
+    .jstree-icon {
+    	zoom: 1.3;
+    	width: 30px !important;
+    	// height: 35px !important;
+    	text-align: center;
+    	// padding: 10px !important;
+    	margin-left:2px !important;
+    	margin-top:-3px !important;
+    	// padding-left:20px !important;
     }
 }
 
@@ -231,10 +252,12 @@ article {
     background: #fff;
     z-index: 999;
     padding: 150px 40px 100px 40px;
-    text-align: justify;
+    // text-align: justify;
     @media screen and (max-width: 639px) {
         margin-left: 0px;
         padding: 80px 20px 20px 20px;
+        padding-bottom: 80px;
+        font-size:0.95em;
     }
     >h1 {
         position: absolute;
