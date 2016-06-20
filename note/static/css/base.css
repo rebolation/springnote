@@ -37,8 +37,8 @@ aside {
   aside {
     display: block; }
 
-  div.prev, div.next {
-    display: none; }
+  #nav_prev, #nav_next {
+    width: 15px; }
 
   .jstree-icon {
     zoom: 1.3;

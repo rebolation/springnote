@@ -61,11 +61,13 @@
 			{{userpage}}
 		</footer>
 		<aside>
-		    <a href="javascript:$('#savepost').click();" id="next"><i class="fa fa-floppy-o" aria-hidden="true"></i></a>
-		    <a href="javascript:$('#newsibling').click();" id="next"><i class="fa fa-plus" aria-hidden="true"></i></a>
+		    {% if user.username == userpage %}
+		    <a href="javascript:$('#savepost').click();"><i class="fa fa-floppy-o" aria-hidden="true"></i></a>
+		    <a href="javascript:$('#newsibling').click();"><i class="fa fa-plus" aria-hidden="true"></i></a>
+		    {% endif %}
 		    <a href="javascript:void(0);" id="menutoggle"><i class="fa fa-list" aria-hidden="true"></i></a>
-		    <a href="javascript:$('#nav_prev').click();" id="prev"><i class="fa fa-backward" aria-hidden="true"></i></a>
-		    <a href="javascript:$('#nav_next').click();" id="next"><i class="fa fa-forward" aria-hidden="true"></i></a>
+		    <!-- <a href="javascript:$('#nav_prev').click();"><i class="fa fa-backward" aria-hidden="true"></i></a> -->
+		    <!-- <a href="javascript:$('#nav_next').click();"><i class="fa fa-forward" aria-hidden="true"></i></a> -->
 		</aside>
 	</div>
 
