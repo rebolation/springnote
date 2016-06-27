@@ -10,25 +10,26 @@ div.container {
   border-bottom: 0;
   box-shadow: 0px 0px 15px #aaa; }
 
-aside {
+aside a {
   position: fixed;
-  bottom: 0;
-  padding: 10px;
-  width: 100%;
-  max-width: 1200px;
-  text-align: right;
-  z-index: 5000; }
-  aside a {
-    display: inline-block;
-    text-align: center;
-    line-height: 50px;
-    background: #bc003b;
-    font-weight: bold;
-    color: white;
-    width: 50px;
-    height: 50px;
-    border-radius: 25px;
-    cursor: pointer; }
+  bottom: 10px;
+  width: 50px;
+  height: 50px;
+  z-index: 9999;
+  display: inline-block;
+  text-align: center;
+  line-height: 50px;
+  background: #bc003b;
+  font-weight: bold;
+  color: white;
+  border-radius: 25px;
+  cursor: pointer; }
+aside a#asidesave {
+  right: 120px; }
+aside a#asidenew {
+  right: 65px; }
+aside a#menutoggle {
+  right: 10px; }
 
 @media screen and (min-width: 640px) {
   aside {

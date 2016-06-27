@@ -17,6 +17,15 @@
 </head>
 <body>
 	<div id="noteapp" class="container ">
+		<aside>
+		    {% if user.username == userpage %}
+		    <a href="javascript:$('#savepost').click();" id="asidesave"><i class="fa fa-floppy-o" aria-hidden="true"></i></a>
+		    <a href="javascript:$('#newsibling').click();" id="asidenew"><i class="fa fa-plus" aria-hidden="true"></i></a>
+		    {% endif %}
+		    <a href="javascript:void(0);" id="menutoggle"><i class="fa fa-list" aria-hidden="true"></i></a>
+		    <!-- <a href="javascript:$('#nav_prev').click();"><i class="fa fa-backward" aria-hidden="true"></i></a> -->
+		    <!-- <a href="javascript:$('#nav_next').click();"><i class="fa fa-forward" aria-hidden="true"></i></a> -->
+		</aside>	
 		<article>
 			<h1 contenteditable="true"></h1>
 			<div class="content" contenteditable="true"></div>
@@ -60,15 +69,6 @@
 		<footer>
 			{{userpage}}
 		</footer>
-		<aside>
-		    {% if user.username == userpage %}
-		    <a href="javascript:$('#savepost').click();"><i class="fa fa-floppy-o" aria-hidden="true"></i></a>
-		    <a href="javascript:$('#newsibling').click();"><i class="fa fa-plus" aria-hidden="true"></i></a>
-		    {% endif %}
-		    <a href="javascript:void(0);" id="menutoggle"><i class="fa fa-list" aria-hidden="true"></i></a>
-		    <!-- <a href="javascript:$('#nav_prev').click();"><i class="fa fa-backward" aria-hidden="true"></i></a> -->
-		    <!-- <a href="javascript:$('#nav_next').click();"><i class="fa fa-forward" aria-hidden="true"></i></a> -->
-		</aside>
 	</div>
 
 	<script>
