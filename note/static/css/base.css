@@ -17,7 +17,7 @@ aside {
   width: 100%;
   max-width: 1200px;
   text-align: right;
-  z-index: 1000; }
+  z-index: 5000; }
   aside a {
     display: inline-block;
     text-align: center;
@@ -59,12 +59,11 @@ nav {
   overflow-x: hidden;
   overflow-y: hidden;
   background-color: #2d2d2d;
-  z-index: 998;
+  z-index: 1000;
   color: #e5e5e5; }
   @media screen and (max-width: 639px) {
     nav {
       position: relative;
-      z-index: 1000;
       width: 100%; } }
   nav header {
     position: absolute;
@@ -73,7 +72,7 @@ nav {
     width: 100%;
     height: 80px;
     background-color: #bc003b;
-    z-index: 9999; }
+    z-index: 1001; }
     nav header h1 {
       position: absolute;
       top: 10px;
@@ -138,7 +137,7 @@ nav {
     position: absolute;
     top: 0;
     width: 40px;
-    z-index: 999;
+    z-index: 2000;
     text-align: center;
     border-bottom-right-radius: 10px; }
     nav div.gnb a {
@@ -197,7 +196,7 @@ article {
   position: relative;
   margin-left: 300px;
   background: #fff;
-  z-index: 999;
+  z-index: 500;
   padding: 150px 40px 100px 40px; }
   @media screen and (max-width: 639px) {
     article {
@@ -217,7 +216,7 @@ article {
     position: absolute;
     top: 0;
     right: 0;
-    z-index: 1000;
+    z-index: 501;
     background-color: #2d2d2d;
     color: white;
     font-size: 12px;
@@ -262,7 +261,7 @@ footer {
   position: absolute;
   bottom: 0;
   right: 0;
-  z-index: 1000;
+  z-index: 700;
   background-color: #2d2d2d;
   color: white;
   font-size: 14px;
