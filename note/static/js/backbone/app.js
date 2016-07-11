@@ -20,6 +20,65 @@ $(function () {
 		$("#jstree").jstree(tree.jstreecore());		
 	});
 
+	// 캘린더...
+	app.cals.fetch({reset: true, url:'/api/v1/calendarevent'}).done(function(){
+		$('#calendar').fullCalendar({
+			titleFormat: 'YYYY년 MMMM월',
+			monthNames: [
+				'1','2','3','4','5','6','7','8','9','10','11','12',
+			],
+			events: function(start, end, timezone, callback) {
+				callback(app.cals.toJSON());
+			},
+			editable: true,
+			selectable: true,
+			selectHelper: true,
+			businessHours: true,
+			select: function(start, end) {
+				var title = prompt('Event Title:', '');
+				var eventData;
+				if (title) {
+					eventData = {
+						author: '/api/v1/user/' + USERID,
+						title: title,
+						start: start,
+						end: end
+					};
+					app.cals.create( // 저장 후 id를 받아야 드랍이나 리사이즈 이벤트가 정상 작동함
+						eventData, 
+						{
+							success: function(response){
+								eventData.id = response.id;
+								eventData._id = response.id;
+								$('#calendar').fullCalendar('renderEvent', eventData); // stick? = true
+							}
+						} 
+					);
+				}
+				$('#calendar').fullCalendar('unselect');
+			},
+			eventDrop: function(event, delta, revertFunc) {
+				var model = _.where(app.cals.models, {"id":event.id})[0];
+				model.save( {start: event.start, end: event.end}, { patch:true } );
+			},
+			eventResize: function(event, delta, revertFunc) {
+				var model = _.where(app.cals.models, {"id":event.id})[0];
+				model.save( {end: event.end}, { patch:true } );
+			},
+			eventClick: function(calEvent, jsEvent, view) {
+				if (confirm("삭제할까요?"))
+				{
+					var model = _.where(app.cals.models, {"id":calEvent.id})[0];
+					model.destroy({
+						success: function(response){
+							$('#calendar').fullCalendar( 'removeEvents', calEvent.id );
+						}
+					})
+				}
+			}
+		})
+	});
+
 });
 
 

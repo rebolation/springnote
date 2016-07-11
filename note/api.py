@@ -9,6 +9,8 @@ from tastypie.serializers import Serializer
 from tastypie.cache import SimpleCache
 import bleach
 
+from .models import CalendarEvent
+
 
 class UserResource(ModelResource):
 	class Meta:
@@ -162,7 +164,6 @@ class NoteResource(ModelResource):
 				# styles=['color', 'background', 'background-color', 'font-size', 'font-weight'],
 				strip=True
 			)
-
 		return bundle
 
 	# backbone collection fetch를 위해 objects만 보냄
@@ -177,3 +178,64 @@ class NoteResource(ModelResource):
 			return super(NoteResource, self).get_object_list(request).filter(author_id=user.id)
 		else:
 			return super(NoteResource, self).get_object_list(request)
+
+
+
+class CalendarEventAuthorization(Authorization):
+	# GET : 노트의 오너와 로그인한 유저가 일치해야만
+	def read_list(self, object_list, bundle):
+		allowed = []
+		for obj in object_list:
+			if obj.author == bundle.request.user:
+				allowed.append(obj)
+		return allowed
+
+	# POST : 노트의 오너와 로그인한 유저가 일치해야만
+	def create_detail(self, object_list, bundle):
+		if bundle.obj.author == bundle.request.user:
+			return True
+		else:
+			raise Unauthorized("no permission")
+
+	# PATCH, PUT (여러개) : 노트의 오너와 로그인한 유저가 일치해야만
+	def update_list(self, object_list, bundle):
+		allowed = []
+		for obj in object_list:
+			if obj.author == bundle.request.user:
+				allowed.append(obj)
+		return allowed
+
+	# PATCH, PUT : 노트의 오너와 로그인한 유저가 일치해야만
+	def update_detail(self, object_list, bundle):
+		if bundle.obj.author == bundle.request.user:
+			return True
+		else:
+			raise Unauthorized("no permission")		
+
+	# DELETE : 노트의 오너와 로그인한 유저가 일치해야만
+	def delete_detail(self, object_list, bundle):
+		if bundle.obj.author == bundle.request.user:
+			return True
+		else:
+			raise Unauthorized("no permission")
+
+
+class CalendarEventResource(ModelResource):
+	author = fields.ForeignKey(UserResource, 'author')
+	class Meta:
+		queryset = CalendarEvent.objects.all()
+		filtering = { "id" : ALL, 'start' : ALL, 'end' : ALL }
+		fields = ['id', 'title', 'start', 'end', 'allDay', 'editable'] #id를 꼭 넣어줘야 PATCH등이 정상 작동하는 듯
+		include_resource_uri = False
+		always_return_data = True #POST후 id와 resource_uri를 backbone에 전달
+		authorization = CalendarEventAuthorization()
+
+	def alter_list_data_to_serialize(self, request, data):
+		return data["objects"]
+
+	def dehydrate(self, bundle):
+		bundle.data['start'] = bundle.data['start'][:10]
+		bundle.data['end'] = bundle.data['end'][:10]
+		bundle.data['allDay'] = True
+		bundle.data['editable'] = True
+		return bundle

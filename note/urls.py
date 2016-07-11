@@ -2,13 +2,14 @@ from django.conf.urls import url, include
 from django.contrib.auth.views import login, logout
 from note import views
 from tastypie.api import Api
-from .api import UserResource, NavResource, NoteResource
+from .api import UserResource, NavResource, NoteResource, CalendarEventResource
 
 
 v1_api = Api(api_name='v1')
 v1_api.register(UserResource())
 v1_api.register(NavResource())
 v1_api.register(NoteResource())
+v1_api.register(CalendarEventResource())
 
 urlpatterns = [
 	url(r'^$', views.homepage, name='homepage'),

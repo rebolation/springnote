@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />	
 	<title>스프링노트</title>
 	<link rel="stylesheet" href="/static/css/reset.css">
 	<link rel="stylesheet" href="/static/css/font.css">
@@ -12,18 +14,12 @@
 	<div class="login">
 
 		<form method="POST" action="{% url 'login' %}">{% csrf_token %}
-			<table>
-				<tr>
-					<!-- <td>{{form.username.label_tag}}</td> -->
-					<td><label for="id_username"><i class="fa fa-user fa-4x" aria-hidden="true"></i></label></td>
-					<td>{{form.username}}</td>
-				</tr>
-				<tr>
-					<!-- <td>{{form.password.label_tag}}</td> -->
-					<td><label for="id_password"><i class="fa fa-lock fa-4x" aria-hidden="true"></i></label></td>
-					<td>{{form.password}}</td>
-				</tr>
-			</table>
+
+			<p>아이디</p>
+			<p>{{form.username}}</p>
+
+			<p>비밀번호</p>
+			<p>{{form.password}}</p>
 
 			<input type="submit" value="LOGIN">
 			<input type="hidden" name="next" value="{{next}}">
@@ -33,6 +29,7 @@
 			{% endif %}
 
 		</form>
+
 	</div>
 </body>
 </html>

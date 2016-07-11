@@ -26,3 +26,8 @@ class Note(models.Model):
 	def __str__(self):
 		return self.text
 
+class CalendarEvent(models.Model):
+	author = models.ForeignKey(User)
+	title = models.TextField()
+	start = models.TextField()
+	end = models.TextField()

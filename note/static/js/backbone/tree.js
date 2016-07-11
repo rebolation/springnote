@@ -83,6 +83,17 @@ $(document).on('dnd_stop.vakata', function (e, data) {
 //노드선택(읽기)
 $('#jstree').on("select_node.jstree", function (e, data) {
 
+	//캘린더
+	if(data.node.original.text == '캘린더'){
+		$("#calendar").css('visibility', 'visible');
+		$("#calendar").css('height', 'auto');
+		$("article>h1").text('');
+		$("article>.content").text('');
+	} else {
+		$("#calendar").css('visibility', 'hidden');
+		$("#calendar").css('height', '0px');
+	}
+
 	//모바일일 때 목록 끄기
 	if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|OperaMini/i.test(navigator.userAgent)) {
         $("nav").addClass('hidden');
@@ -97,6 +108,7 @@ $('#jstree').on("select_node.jstree", function (e, data) {
 	} else {
 		$("#lockpost").removeClass("colored");
 	}
+
 
 });
 

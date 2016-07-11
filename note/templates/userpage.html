@@ -25,17 +25,18 @@
 		    <a href="javascript:void(0);" id="menutoggle"><i class="fa fa-list" aria-hidden="true"></i></a>
 		    <!-- <a href="javascript:$('#nav_prev').click();"><i class="fa fa-backward" aria-hidden="true"></i></a> -->
 		    <!-- <a href="javascript:$('#nav_next').click();"><i class="fa fa-forward" aria-hidden="true"></i></a> -->
-		</aside>	
+		</aside>
 		<article>
 			<h1 contenteditable="true"></h1>
 			<div class="content" contenteditable="true"></div>
-			<div class="prev">
-				<a href="javascript:void(0)" id="nav_prev" title="이전"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
-			</div>
+			<!-- <div class="prev"> -->
+				<!-- <a href="javascript:void(0)" id="nav_prev" title="이전"><i class="fa fa-arrow-left" aria-hidden="true"></i></a> -->
+			<!-- </div> -->
 			<div class="next">
 				<a href="javascript:void(0)" id="nav_next" title="다음"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>
 			</div>
 		</article>	
+		<div id="calendar"></div>
 		<nav>
 			<header>
 				<h1><a href="/">SPRINGNOTE</a></h1>
@@ -96,5 +97,12 @@
 	<script src="/static/js/backbone/tree.js?{%now 'dhms'%}"></script>
 	<script src="/static/js/backbone/paste.js"></script>
 	<script src="/static/js/backbone/router.js?{%now 'dhms'%}"></script>
+
+	<script src="/static/js/backbone/cal.js"></script>
+	<script src="/static/js/backbone/cals.js"></script>
+	<link rel='stylesheet' href='/static/js/fullcalendar-2.8.0/fullcalendar.min.css' />
+	<script src='/static/js/fullcalendar-2.8.0/lib/moment.min.js'></script>
+	<script src='/static/js/fullcalendar-2.8.0/fullcalendar.min.js'></script>
+
 </body>
 </html>
