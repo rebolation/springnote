@@ -86,7 +86,6 @@ nav {
   overflow-x: hidden;
   overflow-y: hidden;
   background-color: #2d2d2d;
-  z-index: 10;
   color: #e5e5e5; }
   @media screen and (max-width: 639px) {
     nav {
@@ -223,7 +222,7 @@ article {
   position: relative;
   margin-left: 300px;
   background: #fff;
-  z-index: 5;
+  z-index: 0;
   padding: 150px 40px 100px 40px; }
   @media screen and (max-width: 639px) {
     article {
