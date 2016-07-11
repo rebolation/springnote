@@ -38,7 +38,7 @@ var tree = {
 	
 		}
 		$.jstree.defaults.dnd.inside_pos = 'last';
-		$.jstree.defaults.dnd.touch = 'selected';
+		$.jstree.defaults.dnd.touch = 'false'; //'selected'
 	},
 
 	//드래그한 노드의 모든 형제노드의 order를 PATCH
